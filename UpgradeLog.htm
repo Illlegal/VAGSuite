@@ -1,0 +1,447 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+ <html xmlns:msxsl="urn:schemas-microsoft-com:xslt"><head><meta content="en-us" http-equiv="Content-Language" /><meta content="text/html; charset=utf-16" http-equiv="Content-Type" /><title _locID="ConversionReport0">
+          Raport migracji
+        </title><style> 
+                    /* Body style, for the entire document */
+                    body
+                    {
+                        background: #F3F3F4;
+                        color: #1E1E1F;
+                        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    /* Header1 style, used for the main title */
+                    h1
+                    {
+                        padding: 10px 0px 10px 10px;
+                        font-size: 21pt;
+                        background-color: #E2E2E2;
+                        border-bottom: 1px #C1C1C2 solid; 
+                        color: #201F20;
+                        margin: 0;
+                        font-weight: normal;
+                    }
+
+                    /* Header2 style, used for "Overview" and other sections */
+                    h2
+                    {
+                        font-size: 18pt;
+                        font-weight: normal;
+                        padding: 15px 0 5px 0;
+                        margin: 0;
+                    }
+
+                    /* Header3 style, used for sub-sections, such as project name */
+                    h3
+                    {
+                        font-weight: normal;
+                        font-size: 15pt;
+                        margin: 0;
+                        padding: 15px 0 5px 0;
+                        background-color: transparent;
+                    }
+
+                    /* Color all hyperlinks one color */
+                    a
+                    {
+                        color: #1382CE;
+                    }
+
+                    /* Table styles */ 
+                    table
+                    {
+                        border-spacing: 0 0;
+                        border-collapse: collapse;
+                        font-size: 10pt;
+                    }
+
+                    table th
+                    {
+                        background: #E7E7E8;
+                        text-align: left;
+                        text-decoration: none;
+                        font-weight: normal;
+                        padding: 3px 6px 3px 6px;
+                    }
+
+                    table td
+                    {
+                        vertical-align: top;
+                        padding: 3px 6px 5px 5px;
+                        margin: 0px;
+                        border: 1px solid #E7E7E8;
+                        background: #F7F7F8;
+                    }
+
+                    /* Local link is a style for hyperlinks that link to file:/// content, there are lots so color them as 'normal' text until the user mouse overs */
+                    .localLink
+                    {
+                        color: #1E1E1F;
+                        background: #EEEEED;
+                        text-decoration: none;
+                    }
+
+                    .localLink:hover
+                    {
+                        color: #1382CE;
+                        background: #FFFF99;
+                        text-decoration: none;
+                    }
+
+                    /* Center text, used in the over views cells that contain message level counts */ 
+                    .textCentered
+                    {
+                        text-align: center;
+                    }
+
+                    /* The message cells in message tables should take up all avaliable space */
+                    .messageCell
+                    {
+                        width: 100%;
+                    }
+
+                    /* Padding around the content after the h1 */ 
+                    #content 
+                    {
+	                    padding: 0px 12px 12px 12px; 
+                    }
+
+                    /* The overview table expands to width, with a max width of 97% */ 
+                    #overview table
+                    {
+                        width: auto;
+                        max-width: 75%; 
+                    }
+
+                    /* The messages tables are always 97% width */
+                    #messages table
+                    {
+                        width: 97%;
+                    }
+
+                    /* All Icons */
+                    .IconSuccessEncoded, .IconInfoEncoded, .IconWarningEncoded, .IconErrorEncoded
+                    {
+                        min-width:18px;
+                        min-height:18px; 
+                        background-repeat:no-repeat;
+                        background-position:center;
+                    }
+
+                    /* Success icon encoded */
+                    .IconSuccessEncoded
+                    {
+                        /* Note: Do not delete the comment below. It is used to verify the correctness of the encoded image resource below before the product is released */
+                        /* [---XsltValidateInternal-Base64EncodedImage:IconSuccess#Begin#background-image: url(data:image/png;base64,#Separator#);#End#] */
+                        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABcElEQVR4Xq2TsUsCURzHv15g8ZJcBWlyiYYgCIWcb9DFRRwMW5TA2c0/QEFwFkxxUQdxVlBwCYWOi6IhWgQhBLHJUCkhLr/BW8S7gvrAg+N+v8/v+x68Z8MGy+XSCyABQAXgBgHGALoASkIIDWSLeLBetdHryMjd5IxQPWT4rn1c/P7+xxp72Cs9m5SZ0Bq2vPnbPFafK2zDvmNHypdC0BPkLlQhxJsCAhQoZwdZU5mwxh720qGo8MzTxTTKZDPCx2HoVzp6lz0Q9tKhyx0kGs8Ny+TkWRKk8lCROwEduhyg9l/6lunOPSfmH3NUH6uQ0KHLAe7JYvJjevm+DAMGJHToKtigE+vwvIidxLamb8IBY9e+C5LiXREkfho3TSd06HJA13/oh6T51MTsfQbHrsMynQ5dDihFjiK8JJAU9AKIWTp76dCVN7HWHrajmUEGvyF9nkbAE6gLIS7kTUyuf2gscLoJrElZo/Mvj+nPz/kLTmfnEwP3tB0AAAAASUVORK5CYII=);
+                    }
+
+                    /* Information icon encoded */
+                    .IconInfoEncoded
+                    {
+                        /* Note: Do not delete the comment below. It is used to verify the correctness of the encoded image resource below before the product is released */
+                        /* [---XsltValidateInternal-Base64EncodedImage:IconInformation#Begin#background-image: url(data:image/png;base64,#Separator#);#End#] */
+                        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHElEQVR4Xs2TsUoDQRRF7wwoziokjZUKadInhdhukR9YP8DMX1hYW+QvdsXa/QHBbcXC7W0CamWTQnclFutceIQJwwaWNLlwm5k5d94M76mmaeCrrmsLYOocY12FcxZFUeozCqKqqgYA8uevv1H6VuPxcwlfk5N92KHBxfFeCSAxxswlYAW/Xr989x/mv9gkhtyMDhcAxgzRsp7flj8B/HF1RsMXq+NZMkopaHe7lbKxQUEIGbKsYNoGn969060hZBkQex/W8oRQwsQaW2o3Ago2SVcJUzAgY3N0lTCZZm+zPS8HB51gMmS1DEYyOz9acKO1D8JWTlafKIMxdhvlfdyT94Vv5h7P8Ky7nQzACmhvKq3zk3PjW9asz9D/1oigecsioooAAAAASUVORK5CYII=);
+                    }
+
+                    /* Warning icon encoded */
+                    .IconWarningEncoded
+                    {
+                        /* Note: Do not delete the comment below. It is used to verify the correctness of the encoded image resource below before the product is released */
+                        /* [---XsltValidateInternal-Base64EncodedImage:IconWarning#Begin#background-image: url(data:image/png;base64,#Separator#);#End#] */
+                        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAx0lEQVR4XpWSMQ7CMAxFf4xAyBMLCxMrO8dhaBcuwdCJS3RJBw7SA/QGTCxdWJgiQYWKXJWKIXHIlyw5lqr34tQgEOdcBsCOx5yZK3hCCKdYXneQkh4pEfqzLfu+wVDSyyzFoJjfz9NB+pAF+eizx2Vruts0k15mPgvS6GYvpVtQhB61IB/dk6AF6fS4Ben0uIX5odtFe8Q/eW1KvFeH4e8khT6+gm5B+t3juyDt7n0jpe+CANTd+oTUjN/U3yVaABnSUjFz/gFq44JaVSCXeQAAAABJRU5ErkJggg==);
+                    }
+
+                    /* Error icon encoded */
+                    .IconErrorEncoded
+                    {
+                        /* Note: Do not delete the comment below. It is used to verify the correctness of the encoded image resource below before the product is released */
+                        /* [---XsltValidateInternal-Base64EncodedImage:IconError#Begin#background-image: url(data:image/png;base64,#Separator#);#End#] */
+                        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABQElEQVR4XqWTvUoEQRCE6wYPZUA80AfwAQz23uCMjA7MDRQEIzPBVEyNTQUFIw00vcQTTMzuAh/AxEQQT8HF/3G/oGGnEUGuoNnd6qoZuqltyKEsyzVJq5I6rnUp6SjGeGhESikzzlc1eL7opfuVbrqbU1Zw9NCgtQMaZpY0eNnaaL2fHusvTK5vKu7sjSS1Y4y3QUA6K3e3Mau5UFDyMP7tYF9o8cAHZv68vipoIJg971PZIZ5HiwdvYGGvFVFHmGmZ2MxwmQYPXubPl9Up0tfoMQGetXd6mRbvhBw+boZ6WF7Mbv1+GsHRk0fQmPAH1GfmZirbCfDJ61tw3Px8/8pZsPAG4jlVhcPgZ7adwNWBB68lkRQWFiTgFlbnLY3DGGM7izIJIyT/jjIvEJw6fdJTc6krDzh6aMwMP9bvDH4ADSsa9uSWVJkAAAAASUVORK5CYII=);
+                    }
+                 </style><script type="text/javascript" language="javascript"> 
+          
+            // Startup 
+            // Hook up the the loaded event for the document/window, to linkify the document content
+            var startupFunction = function() { linkifyElement("messages"); };
+            
+            if(window.attachEvent)
+            {
+              window.attachEvent('onload', startupFunction);
+            }
+            else if (window.addEventListener) 
+            {
+              window.addEventListener('load', startupFunction, false);
+            }
+            else 
+            {
+              document.addEventListener('load', startupFunction, false);
+            } 
+            
+            // Toggles the visibility of table rows with the specified name 
+            function toggleTableRowsByName(name)
+            {
+               var allRows = document.getElementsByTagName('tr');
+               for (i=0; i < allRows.length; i++)
+               {
+                  var currentName = allRows[i].getAttribute('name');
+                  if(!!currentName && currentName.indexOf(name) == 0)
+                  {
+                      var isVisible = allRows[i].style.display == ''; 
+                      isVisible ? allRows[i].style.display = 'none' : allRows[i].style.display = '';
+                  }
+               }
+            }
+            
+            function scrollToFirstVisibleRow(name) 
+            {
+               var allRows = document.getElementsByTagName('tr');
+               for (i=0; i < allRows.length; i++)
+               {
+                  var currentName = allRows[i].getAttribute('name');
+                  var isVisible = allRows[i].style.display == ''; 
+                  if(!!currentName && currentName.indexOf(name) == 0 && isVisible)
+                  {
+                     allRows[i].scrollIntoView(true); 
+                     return true; 
+                  }
+               }
+               
+               return false;
+            }
+            
+            // Linkifies the specified text content, replaces candidate links with html links 
+            function linkify(text)
+            {
+                 if(!text || 0 === text.length)
+                 {
+                     return text; 
+                 }
+
+                 // Find http, https and ftp links and replace them with hyper links 
+                 var urlLink = /(http|https|ftp)\:\/\/[a-zA-Z0-9\-\.]+(:[a-zA-Z0-9]*)?\/?([a-zA-Z0-9\-\._\?\,\/\\\+&%\$#\=~;\{\}])*/gi;
+                 
+                 return text.replace(urlLink, '<a href="$&">$&</a>') ;
+            }
+            
+            // Linkifies the specified element by ID
+            function linkifyElement(id)
+            {
+                var element = document.getElementById(id);
+                if(!!element)
+                {
+                  element.innerHTML = linkify(element.innerHTML); 
+                }
+            }
+            
+            function ToggleMessageVisibility(projectName)
+            {
+              if(!projectName || 0 === projectName.length)
+              {
+                return; 
+              }
+              
+              toggleTableRowsByName("MessageRowClass" + projectName);
+              toggleTableRowsByName('MessageRowHeaderShow' + projectName);
+              toggleTableRowsByName('MessageRowHeaderHide' + projectName); 
+            }
+            
+            function ScrollToFirstVisibleMessage(projectName)
+            {
+              if(!projectName || 0 === projectName.length)
+              {
+                return; 
+              }
+              
+              // First try the 'Show messages' row
+              if(!scrollToFirstVisibleRow('MessageRowHeaderShow' + projectName))
+              {
+                // Failed to find a visible row for 'Show messages', try an actual message row 
+                scrollToFirstVisibleRow('MessageRowClass' + projectName); 
+              }
+            }
+           </script></head><body><h1 _locID="ConversionReport">
+          Raport migracji - </h1><div id="content"><h2 _locID="OverviewTitle">Przegląd</h2><div id="overview"><table><tr><th></th><th _locID="ProjectTableHeader">Projekt</th><th _locID="PathTableHeader">Ścieżka</th><th _locID="ErrorsTableHeader">Błędy</th><th _locID="WarningsTableHeader">Ostrzeżenia</th><th _locID="MessagesTableHeader">Komunikaty</th></tr><tr><td class="IconWarningEncoded" /><td><strong><a href="#C:-Users-User-source-repos-VAGEDCSuite-master-VAGSuite.csproj">..\VAGEDCSuite-master\VAGSuite.csproj</a></strong></td><td>VAGSuite.csproj</td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#C:-Users-User-source-repos-VAGEDCSuite-master-VAGSuite.csprojWarning">1</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconWarningEncoded" /><td><strong><a href="#Solution"><span _locID="OverviewSolutionSpan">Rozwiązanie</span></a></strong></td><td>VAGSuite.sln</td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#SolutionWarning">1</a></td><td class="textCentered"><a href="#" onclick="ScrollToFirstVisibleMessage('Solution'); return false;">2</a></td></tr><tr><td class="IconSuccessEncoded" /><td><strong><a href="#VAGSuite">VAGSuite</a></strong></td><td>VAGSuite.csproj</td><td class="textCentered"><a>0</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#" onclick="ScrollToFirstVisibleMessage('VAGSuite'); return false;">168</a></td></tr></table></div><h2 _locID="SolutionAndProjectsTitle">Rozwiązanie i projekty</h2><div id="messages"><a name="C:-Users-User-source-repos-VAGEDCSuite-master-VAGSuite.csproj" /><h3>..\VAGEDCSuite-master\VAGSuite.csproj</h3><table><tr id="C:-Users-User-source-repos-VAGEDCSuite-master-VAGSuite.csprojHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Komunikat</th></tr><tr name="WarningRowClassC:-Users-User-source-repos-VAGEDCSuite-master-VAGSuite.csproj"><td class="IconWarningEncoded"><a name="C:-Users-User-source-repos-VAGEDCSuite-master-VAGSuite.csprojWarning" /></td><td class="messageCell"><strong>VAGSuite.csproj:
+        </strong><span>Format projektu nie jest już obsługiwany. Funkcje konwertowania tego projektu na obsługiwany format zostaną usunięte w następnej wersji programu Visual Studio. Zalecamy przechowywanie uaktualnionej wersji i zaprzestanie korzystania z oryginalnej nieobsługiwanej wersji. Więcej informacji: https://aka.ms/DeprecatedProjectConversion</span></td></tr></table><a name="Solution" /><h3 _locID="ProjectDisplayNameHeader">Rozwiązanie</h3><table><tr id="SolutionHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Komunikat</th></tr><tr name="WarningRowClassSolution"><td class="IconWarningEncoded"><a name="SolutionWarning" /></td><td class="messageCell"><strong>VAGSuite.sln:
+        </strong><span>Program Visual Studio musi wprowadzić zmiany niefunkcjonalne w tym projekcie w celu umożliwienia otwarcia go w programach Visual Studio nowszych niż Visual Studio 2010 z dodatkiem SP1 bez wpływu na działanie projektów.</span></td></tr><tr name="MessageRowHeaderShowSolution"><td class="IconInfoEncoded" /><td class="messageCell"><a _locID="ShowAdditionalMessages" href="#" name="SolutionMessage" onclick="ToggleMessageVisibility('Solution'); return false;">
+          Pokaż 2 dodatkowe wiadomości
+        </a></td></tr><tr name="MessageRowClassSolution" style="display: none"><td class="IconInfoEncoded"><a name="SolutionMessage" /></td><td class="messageCell"><strong>VAGSuite.sln:
+        </strong><span>Pomyślnie utworzono kopię zapasową pliku jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\VAGSuite.sln</span></td></tr><tr name="MessageRowClassSolution" style="display: none"><td class="IconInfoEncoded"><a name="SolutionMessage" /></td><td class="messageCell"><strong>VAGSuite.sln:
+        </strong><span>Migracja rozwiązania została wykonana pomyślnie</span></td></tr><tr style="display: none" name="MessageRowHeaderHideSolution"><td class="IconInfoEncoded" /><td class="messageCell"><a _locID="HideAdditionalMessages" href="#" name="SolutionMessage" onclick="ToggleMessageVisibility('Solution'); return false;">
+          Ukryj 2 dodatkowe wiadomości
+        </a></td></tr></table><a name="VAGSuite" /><h3>VAGSuite</h3><table><tr id="VAGSuiteHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Komunikat</th></tr><tr name="MessageRowHeaderShowVAGSuite"><td class="IconInfoEncoded" /><td class="messageCell"><a _locID="ShowAdditionalMessages" href="#" name="VAGSuiteMessage" onclick="ToggleMessageVisibility('VAGSuite'); return false;">
+          Pokaż 168 dodatkowe wiadomości
+        </a></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>VAGSuite.csproj:
+        </strong><span>Kopia zapasowa pliku projektu została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\VAGSuite.csproj</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>AppSettings.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\AppSettings.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>AxisHelper.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\AxisHelper.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>CellHelper.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\CellHelper.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>CellHelperCollection.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\CellHelperCollection.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ChecksumResultDetails.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ChecksumResultDetails.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>CodeBlock.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\CodeBlock.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>CompareResults.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\CompareResults.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>CompareResults.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\CompareResults.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ExcelInterface.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ExcelInterface.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmSymbolSelect.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmSymbolSelect.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmSymbolSelect.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmSymbolSelect.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>MSA6FileParser.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\MSA6FileParser.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>EDC15VM_checksum.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\EDC15VM_checksum.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>EDC15P6FileParser.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\EDC15P6FileParser.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>EDC15CFileParser.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\EDC15CFileParser.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>EDC17FileParser.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\EDC17FileParser.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmBinmerger.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmBinmerger.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmBinmerger.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmBinmerger.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmBrowseFiles.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmBrowseFiles.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmBrowseFiles.Designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmBrowseFiles.Designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmCodeBlocks.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmCodeBlocks.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmCodeBlocks.Designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmCodeBlocks.Designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>Lines.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\Lines.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>MSA15FileParser.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\MSA15FileParser.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ctrlAirmassResult.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ctrlAirmassResult.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ctrlAirmassResult.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ctrlAirmassResult.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ctrlAxisEditor.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ctrlAxisEditor.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ctrlAxisEditor.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ctrlAxisEditor.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ctrlCompressorMap.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ctrlCompressorMap.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ctrlCompressorMap.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ctrlCompressorMap.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ctrlReleaseNotes.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ctrlReleaseNotes.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ctrlReleaseNotes.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ctrlReleaseNotes.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>EDC15MFileParser.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\EDC15MFileParser.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>EDC15PFileParser.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\EDC15PFileParser.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>EDC15PTuner.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\EDC15PTuner.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>EDC15P_checksum.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\EDC15P_checksum.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>EDC15P_EEPROM.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\EDC15P_EEPROM.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>EDC15VFileParser.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\EDC15VFileParser.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>EDC16FileParser.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\EDC16FileParser.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>FormFind.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\FormFind.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>FormFindCancel.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\FormFindCancel.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>FormGoTo.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\FormGoTo.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmAbout.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmAbout.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmAbout.Designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmAbout.Designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmBinCompare.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmBinCompare.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmBinCompare.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmBinCompare.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmChangeNote.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmChangeNote.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmChangeNote.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmChangeNote.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmChecksumIncorrect.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmChecksumIncorrect.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmChecksumIncorrect.Designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmChecksumIncorrect.Designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmDecodeVIN.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmDecodeVIN.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmDecodeVIN.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmDecodeVIN.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmEast.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmEast.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmEast.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmEast.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmEEPromEditor.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmEEPromEditor.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmEEPromEditor.Designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmEEPromEditor.Designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmFirmwareInfo.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmFirmwareInfo.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmFirmwareInfo.Designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmFirmwareInfo.Designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmInfoBox.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmInfoBox.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmInfoBox.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmInfoBox.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmMain.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmMain.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmMain.Designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmMain.Designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmPartNumberList.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmPartNumberList.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmPartNumberList.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmPartNumberList.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmPartnumberLookup.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmPartnumberLookup.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmPartnumberLookup.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmPartnumberLookup.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProgress.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProgress.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProgress.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProgress.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProjectLogbook.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProjectLogbook.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProjectLogbook.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProjectLogbook.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProjectProperties.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProjectProperties.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProjectProperties.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProjectProperties.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProjectSelection.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProjectSelection.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProjectSelection.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProjectSelection.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProjectTransactionPurge.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProjectTransactionPurge.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProjectTransactionPurge.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProjectTransactionPurge.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmRebuildFileParameters.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmRebuildFileParameters.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmRebuildFileParameters.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmRebuildFileParameters.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmSearchMaps.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmSearchMaps.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmSearchMaps.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmSearchMaps.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmSettings.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmSettings.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmSettings.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmSettings.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmSplash.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmSplash.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmSplash.Designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmSplash.Designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmTransactionLog.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmTransactionLog.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmTransactionLog.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmTransactionLog.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmUpdateAvailable.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmUpdateAvailable.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmUpdateAvailable.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmUpdateAvailable.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>HexViewer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\HexViewer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>HexViewer.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\HexViewer.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>IEDCFileParser.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\IEDCFileParser.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>MapSelector.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\MapSelector.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>MapViewerEx.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\MapViewerEx.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>MapViewerEx.designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\MapViewerEx.designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>MSA15_checksum.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\MSA15_checksum.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>msiupdater.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\msiupdater.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>PartnumberCollection.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\PartnumberCollection.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>partNumberConverter.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\partNumberConverter.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>PerformanceResults.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\PerformanceResults.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ProfColorTable.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ProfColorTable.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>Program.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\Program.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ProjectLog.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ProjectLog.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>Properties\AssemblyInfo.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\Properties\AssemblyInfo.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>Properties\Resources.Designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\Properties\Resources.Designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>Properties\Settings.Designer.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\Properties\Settings.Designer.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ScannedFile.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ScannedFile.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>SortableCollectionBase.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\SortableCollectionBase.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>SymbolAxesTranslator.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\SymbolAxesTranslator.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>SymbolCollection.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\SymbolCollection.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>SymbolHelper.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\SymbolHelper.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>SymbolTranslator.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\SymbolTranslator.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>Tools.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\Tools.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>TransactionCollection.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\TransactionCollection.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>TransactionEntry.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\TransactionEntry.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>TransactionLog.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\TransactionLog.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>VINDecoder.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\VINDecoder.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>VListBox.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\VListBox.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>XDFWriter.cs:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\XDFWriter.cs</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>packages.config:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\packages.config</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>Properties\Settings.settings:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\Properties\Settings.settings</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>gnome.ico:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\gnome.ico</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>CompareResults.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\CompareResults.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ctrlAirmassResult.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ctrlAirmassResult.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ctrlAxisEditor.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ctrlAxisEditor.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ctrlCompressorMap.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ctrlCompressorMap.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>ctrlReleaseNotes.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\ctrlReleaseNotes.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>FormFind.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\FormFind.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>FormFindCancel.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\FormFindCancel.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>FormGoTo.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\FormGoTo.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmAbout.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmAbout.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmBinCompare.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmBinCompare.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmBinmerger.nl.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmBinmerger.nl.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmBinmerger.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmBinmerger.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmBrowseFiles.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmBrowseFiles.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmChangeNote.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmChangeNote.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmChecksumIncorrect.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmChecksumIncorrect.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmCodeBlocks.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmCodeBlocks.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmDecodeVIN.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmDecodeVIN.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmEast.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmEast.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmEEPromEditor.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmEEPromEditor.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmFirmwareInfo.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmFirmwareInfo.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmInfoBox.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmInfoBox.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmMain.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmMain.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmPartNumberList.nl.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmPartNumberList.nl.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmPartNumberList.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmPartNumberList.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmPartnumberLookup.nl.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmPartnumberLookup.nl.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmPartnumberLookup.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmPartnumberLookup.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProgress.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProgress.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProjectLogbook.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProjectLogbook.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProjectProperties.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProjectProperties.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProjectSelection.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProjectSelection.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmProjectTransactionPurge.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmProjectTransactionPurge.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmRebuildFileParameters.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmRebuildFileParameters.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmSearchMaps.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmSearchMaps.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmSettings.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmSettings.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmSplash.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmSplash.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmSymbolSelect.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmSymbolSelect.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmTransactionLog.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmTransactionLog.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>frmUpdateAvailable.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\frmUpdateAvailable.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>HexViewer.nl.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\HexViewer.nl.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>HexViewer.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\HexViewer.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>MapViewerEx.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\MapViewerEx.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>Properties\licenses.licx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\Properties\licenses.licx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>Properties\Resources.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\Properties\Resources.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>VListBox.resx:
+        </strong><span>Kopia zapasowa pliku została zapisana pomyślnie jako C:\Users\User\source\repos\VAGEDCSuite-master\Backup\VListBox.resx</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>VAGSuite.csproj:
+        </strong><span>Migracja projektu została wykonana pomyślnie</span></td></tr><tr name="MessageRowClassVAGSuite" style="display: none"><td class="IconInfoEncoded"><a name="VAGSuiteMessage" /></td><td class="messageCell"><strong>VAGSuite.csproj:
+        </strong><span>Skanowanie ukończone: pliki projektu nie wymagają migracji.</span></td></tr><tr style="display: none" name="MessageRowHeaderHideVAGSuite"><td class="IconInfoEncoded" /><td class="messageCell"><a _locID="HideAdditionalMessages" href="#" name="VAGSuiteMessage" onclick="ToggleMessageVisibility('VAGSuite'); return false;">
+          Ukryj 168 dodatkowe wiadomości
+        </a></td></tr></table></div></div></body></html>
