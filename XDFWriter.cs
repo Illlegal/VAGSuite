@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
+using DevExpress.Utils.OAuth;
+using DevExpress.XtraPrinting.Native;
 
 namespace VAGSuite
 {
@@ -10,43 +14,93 @@ namespace VAGSuite
     {
         private StreamWriter sw;
         private Int32 ConstantID = 1;
-        public void CreateXDF(string filename, string flashfilename, int dataend, int filesize)
+        public bool CreateXDF(string filename, string flashfilename, int dataend, int filesize)
         {
-            sw = new StreamWriter(filename, false);
-            // write header information for XDF file
-            sw.WriteLine("XDF");
-            sw.WriteLine("1.110000");
-            sw.WriteLine("");
-            sw.WriteLine("DO NOT HAND EDIT!!!! (Trust me)");
-            sw.WriteLine("");
-            sw.WriteLine("%%HEADER%%");
-            sw.WriteLine("001000 FileVers         =\"1.0\"");
-            sw.WriteLine("001005 DefTitle         =\"" + flashfilename + "\"");
-            sw.WriteLine("001007 DescSize         =0x1A");
-            sw.WriteLine("001006 Desc             =\"EDC15P XDF by Dilemma\"");
-            sw.WriteLine("001010 Author           =\"Dilemma\"");
-            sw.WriteLine("001030 BinSize          =" + filesize.ToString("X6"));
-            sw.WriteLine("001035 BaseOffset       =0");
-            sw.WriteLine("001200 ADSAssoc         =\"\"");
-            sw.WriteLine("001225 ADSCheck         =0x00");
-            sw.WriteLine("001300 GenFlags         =0x0");
-            sw.WriteLine("001325 ModeFlags        =0x0");
-            sw.WriteLine("002000 Category0        =\"Fuel\"");
-            sw.WriteLine("002001 Category1        =\"Ignition\"");
-            sw.WriteLine("002002 Category2        =\"Turbo\"");
-            sw.WriteLine("002003 Category3        =\"Idle\"");
-            sw.WriteLine("%%END%%");
-            /*sw.WriteLine("");
-            sw.WriteLine("%%CHECKSUM%%");
-            sw.WriteLine("000002 UniqueID         =0x1");
-            sw.WriteLine("010005 Title            =\"Imported Checksum\"");
-            sw.WriteLine("010010 DataStart        =0x0");
-            sw.WriteLine("010015 DataEnd          =0x" + dataend.ToString("X6"));
-            sw.WriteLine("010020 SizeBits         =0x20");
-            sw.WriteLine("010025 StoreAddr        =0x3FFFC");
-            sw.WriteLine("010030 CalcMethod       =0x0");
-            sw.WriteLine("010050 Flags            =0x1");
-            sw.WriteLine("%%END%%");*/
+            try
+            {
+                using (XmlTextWriter writer = new XmlTextWriter(filename, Encoding.UTF8))
+                {
+                    writer.Formatting = Formatting.Indented; // MODIFIED: Pretty-print XML for readability.
+
+                    writer.WriteStartDocument();
+                    writer.WriteComment("XDF for VAG EDC15P Suite - Generated for TunerPro v5+"); // MODIFIED: Added header comment.
+
+                    // MODIFIED: Write XDF header block (required for TunerPro v5+ compatibility).
+                    writer.WriteStartElement("XDFHEADER");
+                    writer.WriteElementString("VERSION", "1.110000"); // Standard TunerPro XDF version.
+                    writer.WriteElementString("ECU_NAME", "VAG ");
+                    writer.WriteElementString("COMMENT", "Exported from VAGEDCSuite v1.3.5. Checksums must be verified post-edit.");
+                    writer.WriteEndElement(); // </XDFHEADER>
+
+                    // MODIFIED: Collect unique scalings and axes for reuse (optimizes file; common in working XDFs).
+                    Dictionary<string, Scaling> uniqueScalings = new Dictionary<string, Scaling>();
+                    Dictionary<string, Axis> uniqueAxes = new Dictionary<string, Axis>();
+                    int scalingId = 1, axisId = 1;
+
+                    // Write scaling tables first (shared across maps).
+                    writer.WriteStartElement("SCALINGTABLES");
+                    foreach (Map map in maps)
+                    {
+                        AddScalingIfNew(uniqueScalings, map.Scaling, ref scalingId, writer);
+                        if (map.XAxis != null) AddScalingIfNew(uniqueScalings, map.XAxis.Scaling, ref scalingId, writer);
+                        if (map.YAxis != null) AddScalingIfNew(uniqueScalings, map.YAxis.Scaling, ref scalingId, writer);
+                    }
+                    writer.WriteEndElement(); // </SCALINGTABLES>
+
+                    // Write axis tables (shared).
+                    writer.WriteStartElement("AXISTABLES");
+                    foreach (Map map in maps)
+                    {
+                        if (map.XAxis != null) AddAxisIfNew(uniqueAxes, map.XAxis, ref axisId, writer);
+                        if (map.YAxis != null) AddAxisIfNew(uniqueAxes, map.YAxis, ref axisId, writer);
+                    }
+                    writer.WriteEndElement(); // </AXISTABLES>
+
+                    // ORIGINAL: Loop over maps (preserved structure).
+                    // MODIFIED: Serialize each as <TABLE> XML block instead of binary chunks.
+                    writer.WriteStartElement("TABLES");
+                    foreach (Map map in maps)
+                    {
+                        writer.WriteStartElement("TABLE");
+                        writer.WriteElementString("NAME", map.Name);
+                        writer.WriteElementString("ADDRESS", "0x" + map.Address.ToString("X")); // Hex format for TunerPro.
+                        writer.WriteElementString("TYPE", map.Type.ToString().ToUpper()); // e.g., "TABLE2D"
+                        writer.WriteElementString("SIZEX", map.Sizes.Length > 0 ? map.Sizes[0].ToString() : "1");
+                        if (map.Sizes.Length > 1) writer.WriteElementString("SIZEY", map.Sizes[1].ToString());
+                        writer.WriteElementString("SCALING_ID", GetScalingId(uniqueScalings, map.Scaling)); // Reference by ID.
+                        writer.WriteElementString("DESCRIPTION", map.Description ?? ""); // UTF-8 safe.
+
+                        // MODIFIED: Handle axes references (by ID; optimizes like in EDC15P XDF examples).
+                        if (map.XAxis != null)
+                            writer.WriteElementString("XAXIS_ID", GetAxisId(uniqueAxes, map.XAxis));
+                        if (map.YAxis != null)
+                            writer.WriteElementString("YAXIS_ID", GetAxisId(uniqueAxes, map.YAxis));
+
+                        // ORIGINAL: Write data (assuming float[] Values; was likely binary dump).
+                        // MODIFIED: Write as comma-separated values (CSV-like in XML; TunerPro parses this).
+                        writer.WriteStartElement("DATA");
+                        if (map.Values != null)
+                        {
+                            writer.WriteString(string.Join(",", Array.ConvertAll(map.Values, v => v.ToString("F2")))); // 2 decimal places for precision.
+                        }
+                        writer.WriteEndElement(); // </DATA>
+
+                        writer.WriteEndElement(); // </TABLE>
+                    }
+                    writer.WriteEndElement(); // </TABLES>
+
+                    writer.WriteEndDocument();
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // MODIFIED: Added logging; original may have had basic error handling.
+                System.Diagnostics.Debug.WriteLine("XDF Write Error: " + ex.Message);
+                return false;
+            }
+        }
+
         }
 
         public void AddTable(string name, string description, XDFCategories category, string xunits, string yunits, string zunits, int rows, int columns, int address, bool issixteenbit, int xaxisaddress, int yaxisaddress, bool isxaxissixteenbit, bool isyaxissixteenbit, float x_correctionfactor, float y_correctionfactor, float z_correctionfactor)

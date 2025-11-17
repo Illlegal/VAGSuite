@@ -7,7 +7,6 @@ using DevExpress.Data.Filtering.Helpers;
 
 namespace VAGSuite
 {
-
     public enum CarMakes : int
     {
         Audi,
@@ -15,7 +14,6 @@ namespace VAGSuite
         Volkswagen,
         Unknown
     }
-
     internal class Candidate
     {
         public byte[] Pattern { get; set; }
@@ -33,7 +31,7 @@ namespace VAGSuite
         private static volatile Tools instance;
         private static object syncRoot = new Object();
 
-        public EDCFileType m_currentFileType = EDCFileType.EDC16; // default
+        public EDCFileType m_currentFileType = EDCFileType.EDC15P; // default
 
         public TransactionLog m_ProjectTransactionLog;
         public string m_CurrentWorkingProject = string.Empty;
@@ -48,6 +46,10 @@ namespace VAGSuite
         public List<CodeBlock> codeBlockList = new List<CodeBlock>();
         public SymbolCollection m_symbols = new SymbolCollection();
         public List<AxisHelper> AxisList = new List<AxisHelper>();
+
+
+       
+
         public int TorqueToPowerkW(int torque, int rpm)
         {
             double power = (torque * rpm) / 7121;
@@ -316,15 +318,24 @@ namespace VAGSuite
             foreach (Candidate candidate in candidates)
             {
                 if (ContainsPattern(candidate.Pattern))
+                {
+                    m_currentFileType = candidate.Type;
                     return candidate.Type;
+                }   
             }
 
             // === Generic fallback (still very reliable) ===
             if (ContainsPattern(Encoding.ASCII.GetBytes("EDC17")))
+            {
+                m_currentFileType = EDCFileType.EDC17;
                 return EDCFileType.EDC17;
+            }     
 
             if (ContainsPattern(Encoding.ASCII.GetBytes("EDC16")))
+            {
+                m_currentFileType = EDCFileType.EDC16;
                 return EDCFileType.EDC16;
+            }
 
 
             string boschnumber = ExtractBoschPartnumber(allBytes);
@@ -600,7 +611,7 @@ namespace VAGSuite
 
         public string GetWorkingDirectory()
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "VAGEDCSuite");
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "VAGSuite");
         }
 
         public string GetSymbolNameByAddress(Int32 address)
@@ -626,7 +637,18 @@ namespace VAGSuite
         public void savedatatobinary(int address, int length, byte[] data, string filename, bool DoTransActionEntry, string note, EDCFileType type)
         {
             // depends on filetype (EDC16 is not reversed)
-            if (type != EDCFileType.EDC16)
+            if (
+                    type != EDCFileType.EDC16 &&
+                    type != EDCFileType.EDC16CP34 &&
+                    type != EDCFileType.EDC16CP35 &&
+                    type != EDCFileType.EDC16U34 &&
+                    type != EDCFileType.EDC16U31 &&
+                    type != EDCFileType.EDC16U1 &&
+                    type != EDCFileType.EDC16C39 &&
+                    type != EDCFileType.EDC16C35 &&
+                    type != EDCFileType.EDC16C31 &&
+                    type != EDCFileType.EDC16CP
+                    )
             {
                 data = reverseEndian(data);
             }
@@ -651,8 +673,19 @@ namespace VAGSuite
                     if (m_ProjectTransactionLog != null && DoTransActionEntry)
                     {
                         // depends on filetype (EDC16 is not reversed)
-                        if (type != EDCFileType.EDC16)
-                        {
+                        if (
+                        type != EDCFileType.EDC16 &&
+                        type != EDCFileType.EDC16CP34 &&
+                        type != EDCFileType.EDC16CP35 &&
+                        type != EDCFileType.EDC16U34 &&
+                        type != EDCFileType.EDC16U31 &&
+                        type != EDCFileType.EDC16U1 &&
+                        type != EDCFileType.EDC16C39 &&
+                        type != EDCFileType.EDC16C35 &&
+                        type != EDCFileType.EDC16C31 &&
+                        type != EDCFileType.EDC16CP
+                        )
+                        { 
                             data = reverseEndian(data);
                         }
                         TransactionEntry tentry = new TransactionEntry(DateTime.Now, address, length, beforedata, data, 0, 0, note);
@@ -956,7 +989,18 @@ namespace VAGSuite
         public void savedatatobinary(int address, int length, byte[] data, string filename, bool DoTransActionEntry, EDCFileType type)
         {
             // depends on filetype (EDC16 is not reversed)
-            if (type != EDCFileType.EDC16)
+            if (
+                    type != EDCFileType.EDC16 &&
+                    type != EDCFileType.EDC16CP34 &&
+                    type != EDCFileType.EDC16CP35 &&
+                    type != EDCFileType.EDC16U34 &&
+                    type != EDCFileType.EDC16U31 &&
+                    type != EDCFileType.EDC16U1 &&
+                    type != EDCFileType.EDC16C39 &&
+                    type != EDCFileType.EDC16C35 &&
+                    type != EDCFileType.EDC16C31 &&
+                    type != EDCFileType.EDC16CP
+                    )
             {
                 data = reverseEndian(data);
             }
@@ -995,16 +1039,27 @@ namespace VAGSuite
 
             for (int i = 0; i < length; i++)
             {
-                if (type == EDCFileType.EDC16 || type == EDCFileType.EDC16CP || type == EDCFileType.EDC16U1 || type == EDCFileType.EDC16U34)
+                if (
+                    type != EDCFileType.EDC16 &&
+                    type != EDCFileType.EDC16CP34 &&
+                    type != EDCFileType.EDC16CP35 &&
+                    type != EDCFileType.EDC16U34 &&
+                    type != EDCFileType.EDC16U31 &&
+                    type != EDCFileType.EDC16U1 &&
+                    type != EDCFileType.EDC16C39 &&
+                    type != EDCFileType.EDC16C35 &&
+                    type != EDCFileType.EDC16C31 &&
+                    type != EDCFileType.EDC16CP
+                    )
                 {
-                    int iVal = Convert.ToInt32(br1.ReadByte()) * 256;
-                    iVal += Convert.ToInt32(br1.ReadByte());
+                    int iVal = Convert.ToInt32(br1.ReadByte());
+                    iVal += Convert.ToInt32(br1.ReadByte()) * 256;
                     retval.SetValue(iVal, i);
                 }
                 else
                 {
-                    int iVal = Convert.ToInt32(br1.ReadByte());
-                    iVal += Convert.ToInt32(br1.ReadByte()) * 256;
+                    int iVal = Convert.ToInt32(br1.ReadByte()) * 256;
+                    iVal += Convert.ToInt32(br1.ReadByte());
                     retval.SetValue(iVal, i);
                 }
             }
@@ -1080,7 +1135,18 @@ namespace VAGSuite
                     retval.SetValue(br1.ReadByte(), i);
                 }
                 // depends on filetype (EDC16 is not reversed)
-                if (type != EDCFileType.EDC16 && type != EDCFileType.EDC16U1 && type != EDCFileType.EDC16U34 && type != EDCFileType.EDC16 && type != EDCFileType.EDC16)
+                if (
+                    type != EDCFileType.EDC16 && 
+                    type != EDCFileType.EDC16CP34 && 
+                    type != EDCFileType.EDC16CP35 && 
+                    type != EDCFileType.EDC16U34 && 
+                    type != EDCFileType.EDC16U31 &&
+                    type != EDCFileType.EDC16U1 &&
+                    type != EDCFileType.EDC16C39 &&
+                    type != EDCFileType.EDC16C35 &&
+                    type != EDCFileType.EDC16C31 &&
+                    type != EDCFileType.EDC16CP
+                    )
                 {
                     retval = reverseEndian(retval);
                 }
