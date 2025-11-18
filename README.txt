@@ -7,4 +7,4 @@ http://trionic.mobixs.eu/
 Current changes attempted by Skalda (1.4.x branch)
 
 Illlegal Modified. XDFWriter in progress.
-![alt text](/Docs/1111.png "XDF")
+<img width="1423" height="801" alt="Image" src="https://github.com/user-attachments/assets/1cb9c067-9321-40da-866d-ba5633ce0f18" />
