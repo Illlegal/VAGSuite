@@ -7,5 +7,4 @@ http://trionic.mobixs.eu/
 Current changes attempted by Skalda (1.4.x branch)
 
 Illlegal Modified. XDFWriter in progress.
-
-<img src=“Docs/1111.png” raw=true alt=“XDFWriter.cs” style=“margin-right: 10px;”/>
+(/Docs/1111.png)
