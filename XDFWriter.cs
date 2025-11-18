@@ -7,237 +7,287 @@ using System.Xml;
 using System.Xml.Serialization;
 using DevExpress.Utils.OAuth;
 using DevExpress.XtraPrinting.Native;
+using static DevExpress.Utils.Drawing.Helpers.NativeMethods;
+using System.Globalization;
+using DevExpress.XtraPrinting.Export.Pdf;
+using Microsoft.Office.Interop.Excel;
+using static Nevron.Interop.Win32.NGdi32;
+using System.Drawing;
+using System.Security.Cryptography;
 
 namespace VAGSuite
 {
-    class XDFWriter
+
+    class XDFWriter 
     {
-        private StreamWriter sw;
-        private Int32 ConstantID = 1;
-        public bool CreateXDF(string filename, string flashfilename, int dataend, int filesize)
+        private XmlWriter xw;
+        private int UniqueID = 1;
+        //private XmlWriter writer;
+        private string filePath;
+       // private int uniqueId = 100;
+
+        public void CreateXDF(string filename, string flashfilename, int dataend, int filesize)
         {
-            try
+            var settings = new XmlWriterSettings
             {
-                using (XmlTextWriter writer = new XmlTextWriter(filename, Encoding.UTF8))
-                {
-                    writer.Formatting = Formatting.Indented; // MODIFIED: Pretty-print XML for readability.
+                Indent = true,
+                IndentChars = "  ",
+                NewLineOnAttributes = false,
+                Encoding = new UTF8Encoding(false)
+                //Encoding = System.Text.Encoding.UTF8
+            };
 
-                    writer.WriteStartDocument();
-                    writer.WriteComment("XDF for VAG EDC15P Suite - Generated for TunerPro v5+"); // MODIFIED: Added header comment.
+            xw = XmlWriter.Create(filename, settings);
+            xw.WriteStartDocument();
+            xw.WriteComment("XDF for VAG");
+            xw.WriteStartElement("XDFFORMAT"); // Standard TunerPro XDF version.  "1.80"
+            xw.WriteAttributeString("version", "1.80");
 
-                    // MODIFIED: Write XDF header block (required for TunerPro v5+ compatibility).
-                    writer.WriteStartElement("XDFHEADER");
-                    writer.WriteElementString("VERSION", "1.110000"); // Standard TunerPro XDF version.
-                    writer.WriteElementString("ECU_NAME", "VAG ");
-                    writer.WriteElementString("COMMENT", "Exported from VAGEDCSuite v1.3.5. Checksums must be verified post-edit.");
-                    writer.WriteEndElement(); // </XDFHEADER>
+            xw.WriteStartElement("XDFHEADER");
+            xw.WriteElementString("flags", "0x1");
+            xw.WriteElementString("author", "Dilemma");
 
-                    // MODIFIED: Collect unique scalings and axes for reuse (optimizes file; common in working XDFs).
-                    Dictionary<string, Scaling> uniqueScalings = new Dictionary<string, Scaling>();
-                    Dictionary<string, Axis> uniqueAxes = new Dictionary<string, Axis>();
-                    int scalingId = 1, axisId = 1;
+            xw.WriteStartElement("BASEOFFSET");
+            xw.WriteAttributeString("offset", "0");
+            xw.WriteAttributeString("subtract", "0");
+            xw.WriteEndElement();
 
-                    // Write scaling tables first (shared across maps).
-                    writer.WriteStartElement("SCALINGTABLES");
-                    foreach (Map map in maps)
-                    {
-                        AddScalingIfNew(uniqueScalings, map.Scaling, ref scalingId, writer);
-                        if (map.XAxis != null) AddScalingIfNew(uniqueScalings, map.XAxis.Scaling, ref scalingId, writer);
-                        if (map.YAxis != null) AddScalingIfNew(uniqueScalings, map.YAxis.Scaling, ref scalingId, writer);
-                    }
-                    writer.WriteEndElement(); // </SCALINGTABLES>
+            xw.WriteStartElement("DEFAULTS");
+            xw.WriteAttributeString("datasizeinbits", "16");
+            xw.WriteAttributeString("sigdigits", "2");
+            xw.WriteAttributeString("outputtype", "1");
+            xw.WriteAttributeString("signed", "0");
+            xw.WriteAttributeString("lsbfirst", "1");
+            xw.WriteAttributeString("float", "0");
+            xw.WriteEndElement();
 
-                    // Write axis tables (shared).
-                    writer.WriteStartElement("AXISTABLES");
-                    foreach (Map map in maps)
-                    {
-                        if (map.XAxis != null) AddAxisIfNew(uniqueAxes, map.XAxis, ref axisId, writer);
-                        if (map.YAxis != null) AddAxisIfNew(uniqueAxes, map.YAxis, ref axisId, writer);
-                    }
-                    writer.WriteEndElement(); // </AXISTABLES>
-
-                    // ORIGINAL: Loop over maps (preserved structure).
-                    // MODIFIED: Serialize each as <TABLE> XML block instead of binary chunks.
-                    writer.WriteStartElement("TABLES");
-                    foreach (Map map in maps)
-                    {
-                        writer.WriteStartElement("TABLE");
-                        writer.WriteElementString("NAME", map.Name);
-                        writer.WriteElementString("ADDRESS", "0x" + map.Address.ToString("X")); // Hex format for TunerPro.
-                        writer.WriteElementString("TYPE", map.Type.ToString().ToUpper()); // e.g., "TABLE2D"
-                        writer.WriteElementString("SIZEX", map.Sizes.Length > 0 ? map.Sizes[0].ToString() : "1");
-                        if (map.Sizes.Length > 1) writer.WriteElementString("SIZEY", map.Sizes[1].ToString());
-                        writer.WriteElementString("SCALING_ID", GetScalingId(uniqueScalings, map.Scaling)); // Reference by ID.
-                        writer.WriteElementString("DESCRIPTION", map.Description ?? ""); // UTF-8 safe.
-
-                        // MODIFIED: Handle axes references (by ID; optimizes like in EDC15P XDF examples).
-                        if (map.XAxis != null)
-                            writer.WriteElementString("XAXIS_ID", GetAxisId(uniqueAxes, map.XAxis));
-                        if (map.YAxis != null)
-                            writer.WriteElementString("YAXIS_ID", GetAxisId(uniqueAxes, map.YAxis));
-
-                        // ORIGINAL: Write data (assuming float[] Values; was likely binary dump).
-                        // MODIFIED: Write as comma-separated values (CSV-like in XML; TunerPro parses this).
-                        writer.WriteStartElement("DATA");
-                        if (map.Values != null)
-                        {
-                            writer.WriteString(string.Join(",", Array.ConvertAll(map.Values, v => v.ToString("F2")))); // 2 decimal places for precision.
-                        }
-                        writer.WriteEndElement(); // </DATA>
-
-                        writer.WriteEndElement(); // </TABLE>
-                    }
-                    writer.WriteEndElement(); // </TABLES>
-
-                    writer.WriteEndDocument();
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                // MODIFIED: Added logging; original may have had basic error handling.
-                System.Diagnostics.Debug.WriteLine("XDF Write Error: " + ex.Message);
-                return false;
-            }
-        }
-
+            xw.WriteStartElement("REGION");
+            xw.WriteAttributeString("type", "0xFFFFFF");
+            xw.WriteAttributeString("startaddress", "0x0");
+            xw.WriteAttributeString("size", "0xFFFFFF");
+            xw.WriteAttributeString("regioncolor", "0x0");
+            xw.WriteAttributeString("regionflags", "0x0");
+            xw.WriteAttributeString("name", "Binary File");
+            xw.WriteAttributeString("desc", "This region describes the bin file edited by this XDF");
+            xw.WriteEndElement();
+            xw.WriteEndElement(); // XDFHEADER
         }
 
         public void AddTable(string name, string description, XDFCategories category, string xunits, string yunits, string zunits, int rows, int columns, int address, bool issixteenbit, int xaxisaddress, int yaxisaddress, bool isxaxissixteenbit, bool isyaxissixteenbit, float x_correctionfactor, float y_correctionfactor, float z_correctionfactor)
         {
-            if (sw != null)
+            if (xw != null)
             {
-                if (name.StartsWith("Driver wish"))
-                {
-                    bool breakme = true;
-                }
                 if (description == string.Empty) description = name;
-                ConstantID++;
-                sw.WriteLine("%%TABLE%%");
-                sw.WriteLine("000002 UniqueID         =0x" + ConstantID.ToString("X4"));
-                sw.WriteLine("000100 Cat0ID           =0x" + ((int)category).ToString("X2"));
-                sw.WriteLine("040005 Title            =\"" + name + "\"");
-                sw.WriteLine("040011 DescSize         =0x" + ((int)(name.Length + 1)).ToString("X2"));
-                sw.WriteLine("040010 Desc             =\"" + description + "\"");
-                sw.WriteLine("040050 SizeInBits       =0x10");
-                sw.WriteLine("040100 Address          =0x" + address.ToString("X6"));
+                UniqueID++;
+                xw.WriteStartElement("XDFTABLE");
+                xw.WriteAttributeString("uniqueid", "0x"+ UniqueID.ToString("X4"));// + 
+                xw.WriteAttributeString("flags", "0x0");
+                xw.WriteElementString("title", name);
+                xw.WriteElementString("description", description);
+                //xw.WriteStartElement("CATEGORY");
+                //xw.WriteAttributeString("category", ((int)category + 1).ToString());
+                //xw.WriteEndElement();
 
-                sw.WriteLine("040150 Flags            =0x1"); // 30?
-                sw.WriteLine("040200 ZEq              =(X*" + z_correctionfactor.ToString("F1").Replace(",", ".") + ")/10,TH|0|0|0|0|");
-                sw.WriteLine("040203 XOutType         =0x4"); // 4?
-                sw.WriteLine("040304 YOutType         =0x4"); // 4?
-                sw.WriteLine("040205 OutType          =0x3");
-                sw.WriteLine("040230 RangeLow         =0.0000");
-                sw.WriteLine("040240 RangeHigh        =65535.0000");
-                //rows /= 2;
-                sw.WriteLine("040300 Rows             =0x" + rows.ToString("X2"));
-                sw.WriteLine("040305 Cols             =0x" + columns.ToString("X2"));
-                sw.WriteLine("040320 XUnits           =\"" + xunits + "\"");
-                sw.WriteLine("040325 YUnits           =\"" + yunits + "\"");
-                sw.WriteLine("040330 ZUnits           =\"" + zunits + "\"");
+                // X axis
+                xw.WriteStartElement("XDFAXIS");
+                xw.WriteAttributeString("id", "x");
+                xw.WriteAttributeString("uniqueid", "0x0");
+                xw.WriteStartElement("EMBEDDEDDATA");
                 if (xaxisaddress != 0)
                 {
-                    string strxlabel = "040350 XLabels          =";
-                    for (int ix = 0; ix < columns; ix++) strxlabel += "00,";
-                    if (strxlabel.EndsWith(",")) strxlabel = strxlabel.Substring(0, strxlabel.Length - 1);
-                    sw.WriteLine(strxlabel);
+                    xw.WriteAttributeString("mmedaddress", "0x" + xaxisaddress.ToString("X6"));
                 }
-                else
+                xw.WriteAttributeString("mmedelements", columns.ToString());
+                xw.WriteAttributeString("mmedelementsizebits", isxaxissixteenbit ? "16" : "8");
+                xw.WriteAttributeString("mmedmajorstridebits", "-32");
+                xw.WriteAttributeString("mmedminorstridebits", "0");
+                xw.WriteEndElement();
+                xw.WriteElementString("indexcount", columns.ToString());
+                xw.WriteElementString("outputtype", "4");
+                xw.WriteElementString("datatype", isxaxissixteenbit ? "2" : "0");
+                xw.WriteElementString("unittype", "0");
+                xw.WriteStartElement("DALINK");
+                xw.WriteAttributeString("index", "0");
+                xw.WriteEndElement();
+                xw.WriteElementString("min", "0.000000");
+                xw.WriteElementString("max", "65535.000000");
+                xw.WriteElementString("decplaces", "0");
+                xw.WriteStartElement("MATH");
+                xw.WriteAttributeString("equation", "X*" + x_correctionfactor.ToString("F1",CultureInfo.InvariantCulture));//
+                xw.WriteStartElement("VAR");
+                xw.WriteAttributeString("id", "X");
+                xw.WriteEndElement();
+                xw.WriteEndElement();
+                xw.WriteElementString("units", xunits);
+                if (xaxisaddress == 0)
                 {
-                    sw.WriteLine("040350 XLabels          =%");
-                }
-                sw.WriteLine("040352 XLabelType       =0x4"); // 4?
-                sw.WriteLine("040354 XEq              =(X*" + x_correctionfactor.ToString("F1").Replace(",", ".") + "),TH|0|0|0|0|");
-                string strylabel = "040360 YLabels          =  ";
-                for (int ix = 0; ix < columns; ix++) 
-                {
-                    int val = ix*10;
-                    strylabel += val.ToString("D2") + ",";
-                }
-                if (strylabel.EndsWith(",")) strylabel = strylabel.Substring(0, strylabel.Length - 1);
-                sw.WriteLine(strylabel);
-                if (xaxisaddress != 0 && yaxisaddress != 0)
-                {
-                    sw.WriteLine("040362 YLabelType       =0x4");
-                    sw.WriteLine("040364 YEq              =(X*" + y_correctionfactor.ToString("F1").Replace(",", ".") + "),TH|0|0|0|0|");
-                    sw.WriteLine("040505 XLabelSource     =0x1"); // in binary
-                    sw.WriteLine("040515 YLabelSource     =0x1");
-                    sw.WriteLine("040600 XAddress         =0x" + xaxisaddress.ToString("X6"));
-                    if (isxaxissixteenbit)
+                    for (int i = 0; i < columns; i++)
                     {
-                        sw.WriteLine("040620 XAddrStep        =2");
-                    }
-                    else
-                    {
-                        sw.WriteLine("040610 XDataSize        =0x1");
-                        sw.WriteLine("040620 XAddrStep        =1");
+                        xw.WriteStartElement("LABEL");
+                        xw.WriteAttributeString("index", i.ToString());
+                        xw.WriteAttributeString("value", (i * 10).ToString());
+                        xw.WriteEndElement();
                     }
                 }
-                else
+                xw.WriteEndElement(); // XDFAXIS x
+
+                // Y axis
+                xw.WriteStartElement("XDFAXIS");
+                xw.WriteAttributeString("id", "y");
+                xw.WriteAttributeString("uniqueid", "0x0");
+                xw.WriteStartElement("EMBEDDEDDATA");
+                if (yaxisaddress != 0)
                 {
-                    sw.WriteLine("040362 YLabelType       =0x4"); // manual
-                    sw.WriteLine("040364 YEq              =(X*" + y_correctionfactor.ToString("F1").Replace(",", ".") + "),TH|0|0|0|0|");
+                    xw.WriteAttributeString("mmedaddress", "0x" + yaxisaddress.ToString("X6"));
                 }
-                sw.WriteLine("040660 XAxisMin         =1000.000000");
-                sw.WriteLine("040670 XAxisMax         =1000.000000");
-                if (xaxisaddress != 0 && yaxisaddress != 0)
+                xw.WriteAttributeString("mmedelements", rows.ToString());
+                xw.WriteAttributeString("mmedelementsizebits", isyaxissixteenbit ? "16" : "8");
+                xw.WriteAttributeString("mmedmajorstridebits", "-32");
+                xw.WriteAttributeString("mmedminorstridebits", "0");
+                xw.WriteEndElement();
+                xw.WriteElementString("indexcount", rows.ToString());
+                xw.WriteElementString("outputtype", "4");
+                xw.WriteElementString("datatype", isyaxissixteenbit ? "2" : "0");
+                xw.WriteElementString("unittype", "0");
+                xw.WriteStartElement("DALINK");
+                xw.WriteAttributeString("index", "0");
+                xw.WriteEndElement();
+                xw.WriteElementString("min", "0.000000");
+                xw.WriteElementString("max", "65535.000000");
+                xw.WriteElementString("decplaces", "0");
+                xw.WriteStartElement("MATH");
+                xw.WriteAttributeString("equation", "X*" + y_correctionfactor.ToString("F1", CultureInfo.InvariantCulture));
+                xw.WriteStartElement("VAR");
+                xw.WriteAttributeString("id", "X");
+                xw.WriteEndElement();
+                xw.WriteEndElement();
+                xw.WriteElementString("units", yunits);
+                if (yaxisaddress == 0)
                 {
-                    sw.WriteLine("040700 YAddress         =0x" + yaxisaddress.ToString("X6"));
-                    if (isyaxissixteenbit)
+                    for (int i = 0; i < rows; i++)
                     {
-                        sw.WriteLine("040720 YAddrStep        =2");
+                        xw.WriteStartElement("LABEL");
+                        xw.WriteAttributeString("index", i.ToString());
+                        xw.WriteAttributeString("value", (i * 10).ToString());
+                        xw.WriteEndElement();
                     }
                 }
-                sw.WriteLine("040760 YAxisMin         =1000.000000");
-                sw.WriteLine("040770 YAxisMax         =1000.000000");
-                sw.WriteLine("%%END%%");
+                xw.WriteEndElement(); // XDFAXIS y
+
+                // Z axis
+                xw.WriteStartElement("XDFAXIS");
+                xw.WriteAttributeString("id", "z");
+                xw.WriteAttributeString("uniqueid", "0x0");
+                xw.WriteStartElement("EMBEDDEDDATA");
+                xw.WriteAttributeString("mmedaddress", "0x" + address.ToString("X6"));
+                xw.WriteAttributeString("mmedcolcount", columns.ToString());
+                xw.WriteAttributeString("mmedrowcount", rows.ToString());
+                xw.WriteAttributeString("mmedelementsizebits", issixteenbit ? "16" : "8");
+                xw.WriteAttributeString("mmedmajorstridebits", "0");//(columns * (issixteenbit ? 16 : 8)).ToString()
+                xw.WriteAttributeString("mmedminorstridebits", "0");
+                xw.WriteEndElement();
+                xw.WriteElementString("outputtype", "1");
+                xw.WriteElementString("datatype", issixteenbit ? "2" : "0");
+                xw.WriteElementString("unittype", "0");
+                xw.WriteElementString("min", "0.000000");
+                xw.WriteElementString("max", "65535.000000");
+                xw.WriteElementString("decplaces", "2");
+                xw.WriteStartElement("MATH");
+                xw.WriteAttributeString("equation", "X*" + z_correctionfactor.ToString("F1", CultureInfo.InvariantCulture));
+                xw.WriteStartElement("VAR");
+                xw.WriteAttributeString("id", "X");
+                xw.WriteEndElement();
+                xw.WriteEndElement();
+                xw.WriteElementString("units", zunits);
+                xw.WriteEndElement(); // XDFAXIS z
+
+                xw.WriteEndElement(); // XDFTABLE
             }
         }
 
         public void AddConstant(object value, string name, XDFCategories category, string units, int size, int address, bool issixteenbit)
         {
-            if (sw != null)
+            if (xw != null)
             {
-                ConstantID++;
-                sw.WriteLine("%%CONSTANT%%");
-                sw.WriteLine("000002 UniqueID         =0x" + ConstantID.ToString("X4"));
-                sw.WriteLine("000100 Cat0ID           =0x" + ((int)category).ToString("X2"));
-                sw.WriteLine("020005 Title            =\"" + name + "\"");
-                sw.WriteLine("020011 DescSize         =0x1");
-                sw.WriteLine("020010 Desc             =\"\"");
-                sw.WriteLine("020020 Units            =\"" + units + "\"");
-                if (issixteenbit)
-                {
-                    sw.WriteLine("020050 SizeInBits       =0x10");
-                }
-                sw.WriteLine("020100 Address          =0x" + address.ToString("X6"));
-                sw.WriteLine("020200 Equation         =TH|0|0|0|0|");
-                sw.WriteLine("%%END%%");
+                UniqueID++;
+                xw.WriteStartElement("XDFCONSTANT");
+                xw.WriteAttributeString("uniqueid", "0x" + UniqueID.ToString("X4"));
+                xw.WriteAttributeString("flags", "0x0");
+                xw.WriteElementString("title", name);
+                xw.WriteElementString("description", "");
+                xw.WriteStartElement("CATEGORYMEM");
+                xw.WriteAttributeString("index", "0");
+                xw.WriteAttributeString("category", ((int)category + 1).ToString());
+                xw.WriteEndElement();
+                xw.WriteStartElement("EMBEDDEDDATA");
+                xw.WriteAttributeString("mmedaddress", "0x" + address.ToString("X6"));
+                xw.WriteAttributeString("mmedelementsizebits", issixteenbit ? "16" : "8");
+                xw.WriteAttributeString("mmedmajorstridebits", "0");
+                xw.WriteAttributeString("mmedminorstridebits", "0");
+                xw.WriteEndElement();
+                xw.WriteElementString("outputtype", "1");
+                xw.WriteElementString("datatype", issixteenbit ? "2" : "0");
+                xw.WriteElementString("unittype", "0");
+                xw.WriteStartElement("DALINK");
+                xw.WriteAttributeString("index", "0");
+                xw.WriteEndElement();
+                xw.WriteElementString("min", "0.000000");
+                xw.WriteElementString("max", "65535.000000");
+                xw.WriteElementString("decplaces", "0");
+                xw.WriteStartElement("MATH");
+                xw.WriteAttributeString("equation", "X");
+                xw.WriteStartElement("VAR");
+                xw.WriteAttributeString("id", "X");
+                xw.WriteEndElement();
+                xw.WriteEndElement();
+                xw.WriteElementString("units", units);
+                xw.WriteEndElement(); // XDFCONSTANT
             }
         }
 
         public void AddFlag(string title, int address, int bitnumber)
         {
-            if (sw != null)
+            if (xw != null)
             {
-                ConstantID++;
-                sw.WriteLine("%%FLAG%%");
-                sw.WriteLine("000002 UniqueID         =0x" + ConstantID.ToString("X4"));
-                sw.WriteLine("030005 Title            =\"" + title + "\"");
-                sw.WriteLine("030011 DescSize         =0x13");
-                sw.WriteLine("030010 Desc             =\"Enable\\disable VSS\"");
-                sw.WriteLine("030100 Address          =0x" + address.ToString("X6"));
-                sw.WriteLine("030200 BitNumber        =0x" + bitnumber.ToString("X2"));
-                sw.WriteLine("%%END%%");
+                UniqueID++;
+                xw.WriteStartElement("XDFCONSTANT");
+                xw.WriteAttributeString("uniqueid", "0x" + UniqueID.ToString("X4"));
+                xw.WriteAttributeString("flags", "0x0");
+                xw.WriteElementString("title", title);
+                xw.WriteElementString("description", "Enable/disable VSS");
+                xw.WriteStartElement("EMBEDDEDDATA");
+                xw.WriteAttributeString("mmedtypeflags", "0x08");
+                xw.WriteAttributeString("mmedaddress", "0x" + address.ToString("X6"));
+                xw.WriteAttributeString("mmedelementsizebits", "8");
+                xw.WriteAttributeString("mmedmajorstridebits", "0");
+                xw.WriteAttributeString("mmedminorstridebits", "0");
+                xw.WriteEndElement();
+                xw.WriteElementString("outputtype", "5"); // boolean output
+                xw.WriteElementString("datatype", "0");
+                xw.WriteElementString("unittype", "0");
+                xw.WriteStartElement("DALINK");
+                xw.WriteAttributeString("index", "0");
+                xw.WriteEndElement();
+                xw.WriteStartElement("MATH");
+                xw.WriteAttributeString("equation", "X." + bitnumber.ToString());
+                xw.WriteStartElement("VAR");
+                xw.WriteAttributeString("id", "X");
+                xw.WriteEndElement();
+                xw.WriteEndElement();
+                xw.WriteEndElement(); // XDFCONSTANT
             }
         }
 
         public void CloseFile()
         {
-            sw.Close();
+            if (xw != null)
+            {
+                xw.WriteEndElement(); // XDFFORMAT
+                xw.WriteEndDocument();
+                xw.Flush();
+                xw.Close();
+                xw = null;
+            }
         }
-
-
-
     }
 }

@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\tools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|solutionrelative:tools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|c:\\users\\user\\source\\repos\\vagedcsuite-master\\xdfwriter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|solutionrelative:xdfwriter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|solutionrelative:frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|c:\\users\\user\\source\\repos\\vagedcsuite-master\\edc16ufileparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|solutionrelative:edc16ufileparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\edc16fileparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|solutionrelative:edc16fileparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|solutionrelative:frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\tools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|solutionrelative:tools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\axishelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -25,6 +25,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\edc15p6fileparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|solutionrelative:edc15p6fileparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\edc16fileparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|solutionrelative:edc16fileparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\symbolhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Document",
@@ -48,7 +52,7 @@
               "RelativeDocumentMoniker": "EDC15P6FileParser.cs",
               "ToolTip": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\EDC15P6FileParser.cs",
               "RelativeToolTip": "EDC15P6FileParser.cs",
-              "ViewState": "AgIAAAwBAAAAAAAAAAApwB8BAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAADIAAAAAAAAAAAAYwEUAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-14T16:35:08.645Z",
               "IsPinned": true,
@@ -63,31 +67,31 @@
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "EDC16UFileParser.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\EDC16UFileParser.cs",
-              "RelativeDocumentMoniker": "EDC16UFileParser.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\EDC16UFileParser.cs",
-              "RelativeToolTip": "EDC16UFileParser.cs",
-              "ViewState": "AgIAAOACAAAAAAAAAAApwPACAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T21:30:42.413Z",
-              "EditorCaption": ""
-            },
-            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{7bbe0196-eb79-4317-9140-30d7c7376db3}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "EDC16UFileParser.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\EDC16UFileParser.cs",
+              "RelativeDocumentMoniker": "EDC16UFileParser.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\EDC16UFileParser.cs",
+              "RelativeToolTip": "EDC16UFileParser.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAYwCYAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T21:30:42.413Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Tools.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\Tools.cs",
               "RelativeDocumentMoniker": "Tools.cs",
               "ToolTip": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\Tools.cs",
               "RelativeToolTip": "Tools.cs",
-              "ViewState": "AgIAAFwCAAAAAAAAAAAjwHECAACTAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-16T17:19:06.228Z",
               "EditorCaption": ""
@@ -107,20 +111,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "frmMain.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\frmMain.cs",
               "RelativeDocumentMoniker": "frmMain.cs",
               "ToolTip": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\frmMain.cs",
               "RelativeToolTip": "frmMain.cs",
-              "ViewState": "AgIAAOoCAAAAAAAAAAAhwPwCAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAKEOAAAAAAAAAAAYwL8OAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-13T19:11:14.234Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
+              "Title": "XDFWriter.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\XDFWriter.cs",
+              "RelativeDocumentMoniker": "XDFWriter.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\XDFWriter.cs",
+              "RelativeToolTip": "XDFWriter.cs",
+              "ViewState": "AgIAAKgAAAAAAAAAAAAYwMMAAAB8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-17T01:16:43.617Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "SymbolHelper.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\SymbolHelper.cs",
               "RelativeDocumentMoniker": "SymbolHelper.cs",
@@ -128,18 +145,17 @@
               "RelativeToolTip": "SymbolHelper.cs",
               "ViewState": "AgIAAGcAAAAAAAAAAAAowH4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T16:30:05.116Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T16:30:05.116Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "EDC16FileParser.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\EDC16FileParser.cs",
               "RelativeDocumentMoniker": "EDC16FileParser.cs",
               "ToolTip": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\EDC16FileParser.cs",
               "RelativeToolTip": "EDC16FileParser.cs",
-              "ViewState": "AgIAABICAAAAAAAAAAAAAB4CAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAO4AAAAAAAAAAAAYwDEBAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-13T18:16:01.359Z",
               "EditorCaption": ""

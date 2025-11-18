@@ -34,7 +34,7 @@ namespace VAGSuite
                 case AxisType.Pedal:
                     axis.Description = "Throttle  position";
                     axis.Correction = 0.01f;
-                    axis.Units = "%";
+                    axis.Units = "percent";
                     axis.Offset = 0;
                     break;
 
@@ -70,14 +70,14 @@ namespace VAGSuite
                 case AxisType.Temperature:
                     axis.Description = "Temperature in Celsius Degree";
                     axis.Correction = 0.1f;
-                    axis.Units = "*C";
+                    axis.Units = "deg C";
                     axis.Offset = -273.1f;
                     break;
                 
                  case AxisType.Angle:
                     axis.Description = "Crankshaft angle (crankshaft degrees)";
                     axis.Correction = 0.0234375f;
-                    axis.Units = "*";
+                    axis.Units = "deg";
                     axis.Offset = 0;
                     break;
 
@@ -96,30 +96,30 @@ namespace VAGSuite
                     break;
 
                 case AxisType.PWM:
-                    axis.Description = "PWM (%)";
+                    axis.Description = "PWM (0-100)";
                     axis.Correction = 0.01f;
-                    axis.Units = "%";
+                    axis.Units = "percent";
                     axis.Offset = 0;
                     break;
 
                 case AxisType.SOI:
                     axis.Description = "Start position (degrees BTDC)";
                     axis.Correction = 0.0234375f;
-                    axis.Units = "*";
+                    axis.Units = "deg";
                     axis.Offset = 0;
                     break;
 
                 case AxisType.DOI:
                     axis.Description = "Duration (crankshaft degrees)";
                     axis.Correction = 0.0234375f;
-                    axis.Units = "*";
+                    axis.Units = "deg";
                     axis.Offset = 0;
                     break;
 
                 case AxisType.BIP:
                     axis.Description = "Resolution of BIP calculations";
                     axis.Correction = 0.0002441406f;
-                    axis.Units = "*";
+                    axis.Units = "deg";
                     axis.Offset = 0;
                     break;
 
@@ -326,7 +326,7 @@ namespace VAGSuite
                     shsvbl.Category = "Turbo";
                     shsvbl.Subcategory = "Limiters";
                     shsvbl.Flash_start_address = SVBLAddress +20;
-                    shsvbl.Varname = "Single Value Boost Limiter (SVBL)";
+                    shsvbl.Varname = "SVBL (Single Value Boost Limiter)";
                     shsvbl.Length = 2;
                     shsvbl.Size = "1x1";
                     shsvbl.CodeBlock = DetermineCodeBlockByByAddress(shsvbl.Flash_start_address, newCodeBlocks);
@@ -365,7 +365,7 @@ namespace VAGSuite
                     shsvrl.Category = "Misc";
                     shsvrl.Subcategory = "Limiters";
                     shsvrl.Flash_start_address = SVRLAddress + 10;
-                    shsvrl.Varname = "Single Value Rev Limiter (SVRL)";
+                    shsvrl.Varname = "SVRL (Single Value Rev Limiter)";
                     shsvrl.Length = 2;
                     shsvrl.Size = "1x1";
                     shsvrl.CodeBlock = DetermineCodeBlockByByAddress(shsvrl.Flash_start_address, newCodeBlocks);

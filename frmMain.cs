@@ -3741,8 +3741,9 @@ namespace VAGSuite
                 saveFileDialog2.FileName = filename;
                 if (saveFileDialog2.ShowDialog() == DialogResult.OK)
                 {
-                    //filename += ".xdf";
+                    
                     filename = saveFileDialog2.FileName;
+                    //filename += ".xdf";
 
                     xdf.CreateXDF(filename, Tools.Instance.m_currentfile, Tools.Instance.m_currentfilelength, Tools.Instance.m_currentfilelength);
                     foreach (SymbolHelper sh in Tools.Instance.m_symbols)
@@ -3751,42 +3752,35 @@ namespace VAGSuite
                         {
                             int fileoffset = (int)sh.Flash_start_address;
                             while (fileoffset > Tools.Instance.m_currentfilelength) fileoffset -= Tools.Instance.m_currentfilelength;
-                            /*if (sh.Varname == "Pgm_mod!") // VSS vlag
+                            if (!sh.Category.StartsWith("Unknown"))
                             {
-                                xdf.AddFlag("VSS", sh.Flash_start_address, 0x07);
-                            }*/
-                            if (sh.Varname.StartsWith("SVBL"))
-                            {
-                                
+                                if (sh.Varname.StartsWith("SVBL") || sh.Varname.StartsWith("SVRL"))
+                                {
+                                    //Add scalar
+                                }
+                                else
+                                {
+                                    string xaxis = sh.X_axis_descr;
+                                    string yaxis = sh.Y_axis_descr;
+                                    string zaxis = sh.Z_axis_descr;
+                                    float XCorrection = (float)sh.X_axis_correction;
+                                    float YCorrection = (float)sh.Y_axis_correction;
+                                    float ZCorrection = (float)sh.Correction;
+                                    bool m_issixteenbit = true;
+                                    // special maps are:
+                                    int xaxisaddress = sh.X_axis_address;
+                                    int yaxisaddress = sh.Y_axis_address;
+                                    bool isxaxissixteenbit = true;
+                                    bool isyaxissixteenbit = true;
+                                    int columns = sh.X_axis_length;
+                                    int rows = sh.Y_axis_length;
+                                    //int tablewidth = GetTableMatrixWitdhByName(Tools.Instance.m_currentfile, Tools.Instance.m_symbols, sh.Varname, out columns, out rows);
+                                    xdf.AddTable(sh.Varname, sh.Description, XDFCategories.Fuel, xaxis, yaxis, zaxis, columns, rows, fileoffset,
+                                        m_issixteenbit, xaxisaddress, yaxisaddress, isxaxissixteenbit, isyaxissixteenbit, XCorrection, YCorrection, ZCorrection);
+                                }
                             }
-                            else 
-                            {
-                                string xaxis = sh.X_axis_descr;
-                                string yaxis = sh.Y_axis_descr;
-                                string zaxis = sh.Z_axis_descr;
-                                bool m_issixteenbit = true;
-                                // special maps are:
-                                int xaxisaddress = sh.X_axis_address;
-                                int yaxisaddress = sh.Y_axis_address;
-                                bool isxaxissixteenbit = true;
-                                bool isyaxissixteenbit = true;
-                                int columns = sh.X_axis_length;
-                                int rows = sh.Y_axis_length;
-                                //int tablewidth = GetTableMatrixWitdhByName(Tools.Instance.m_currentfile, Tools.Instance.m_symbols, sh.Varname, out columns, out rows);
-                                xdf.AddTable(sh.Varname, sh.Description, XDFCategories.Fuel, xaxis, yaxis, zaxis, columns, rows, fileoffset, m_issixteenbit, xaxisaddress, yaxisaddress, isxaxissixteenbit, isyaxissixteenbit, 1.0F, 1.0F, 1.0F);
-
-                            }
-                            /*else
-                            {
-                                xdf.AddConstant(55, sh.Varname, XDFCategories.Idle, "Aantal", sh.Length, fileoffset, true);
-                            }*/
                         }
                     }
-                    // add some specific stuff
-                    //int fileoffset2 = Tools.Instance.m_currentfile_size - 0x4C;
-
-                    //xdf.AddTable("Vehice Security Code", "VSS code", XDFCategories.Idle, "", "", "", 1, 6, fileoffset2 /*0x3FFB4*/, false, 0, 0, false, false, 1.0F, 1.0F, 1.0F);
-
                     xdf.CloseFile();
                 }
             }
