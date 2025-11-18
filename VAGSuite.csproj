@@ -533,6 +533,7 @@
     <Content Include="libs\Nevron.Presentation.dll" />
     <Content Include="libs\Nevron.System.dll" />
     <Content Include="libs\office.dll" />
+    <Content Include="README.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

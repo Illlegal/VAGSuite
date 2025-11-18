@@ -8,9 +8,4 @@ Current changes attempted by Skalda (1.4.x branch)
 
 Illlegal Modified. XDFWriter in progress.
 
-<img
-src=“Docs/1111.png”
-raw=true
-alt=“Subject Pronouns”
-style=“margin-right: 10px;”
-/>
+<img src=“Docs/1111.png” raw=true alt=“XDFWriter.cs” style=“margin-right: 10px;”/>

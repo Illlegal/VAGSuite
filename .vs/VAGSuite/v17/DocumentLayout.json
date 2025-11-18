@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|c:\\users\\user\\source\\repos\\vagedcsuite-master\\readme.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|solutionrelative:readme.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|c:\\users\\user\\source\\repos\\vagedcsuite-master\\xdfwriter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{22B05C9A-A827-42C1-AA70-06A46712955F}|VAGSuite.csproj|solutionrelative:xdfwriter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -42,11 +46,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "EDC15P6FileParser.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\EDC15P6FileParser.cs",
               "RelativeDocumentMoniker": "EDC15P6FileParser.cs",
@@ -56,6 +60,19 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-14T16:35:08.645Z",
               "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "README.txt",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\README.txt",
+              "RelativeDocumentMoniker": "README.txt",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\README.txt",
+              "RelativeToolTip": "README.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-11-18T22:37:14.035Z",
               "EditorCaption": ""
             },
             {
@@ -72,7 +89,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "EDC16UFileParser.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\EDC16UFileParser.cs",
               "RelativeDocumentMoniker": "EDC16UFileParser.cs",
@@ -85,7 +102,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Tools.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\Tools.cs",
               "RelativeDocumentMoniker": "Tools.cs",
@@ -98,7 +115,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "AxisHelper.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\AxisHelper.cs",
               "RelativeDocumentMoniker": "AxisHelper.cs",
@@ -111,7 +128,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "frmMain.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\frmMain.cs",
               "RelativeDocumentMoniker": "frmMain.cs",
@@ -124,7 +141,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "XDFWriter.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\XDFWriter.cs",
               "RelativeDocumentMoniker": "XDFWriter.cs",
@@ -137,7 +154,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "SymbolHelper.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\SymbolHelper.cs",
               "RelativeDocumentMoniker": "SymbolHelper.cs",
@@ -149,7 +166,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "EDC16FileParser.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\VAGEDCSuite-master\\EDC16FileParser.cs",
               "RelativeDocumentMoniker": "EDC16FileParser.cs",
