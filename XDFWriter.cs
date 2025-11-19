@@ -56,7 +56,7 @@ namespace VAGSuite
             xw.WriteAttributeString("datasizeinbits", "16");
             xw.WriteAttributeString("sigdigits", "2");
             xw.WriteAttributeString("outputtype", "1");
-            xw.WriteAttributeString("signed", "0");
+            xw.WriteAttributeString("signed", "1");
             xw.WriteAttributeString("lsbfirst", "1");
             xw.WriteAttributeString("float", "0");
             xw.WriteEndElement();
@@ -93,33 +93,37 @@ namespace VAGSuite
                 xw.WriteAttributeString("id", "x");
                 xw.WriteAttributeString("uniqueid", "0x0");
                 xw.WriteStartElement("EMBEDDEDDATA");
+                xw.WriteAttributeString("mmededtypeflags", "0x02");
                 if (xaxisaddress != 0)
                 {
-                    xw.WriteAttributeString("mmedaddress", "0x" + xaxisaddress.ToString("X6"));
+                xw.WriteAttributeString("mmedaddress", "0x" + xaxisaddress.ToString("X6")); //sh.X_axis_address.ToString("X6")
                 }
-                xw.WriteAttributeString("mmedelements", columns.ToString());
                 xw.WriteAttributeString("mmedelementsizebits", isxaxissixteenbit ? "16" : "8");
-                xw.WriteAttributeString("mmedmajorstridebits", "-32");
+                xw.WriteAttributeString("mmedcolcount", columns.ToString());
+                xw.WriteAttributeString("mmedmajorstridebits", "0");
                 xw.WriteAttributeString("mmedminorstridebits", "0");
                 xw.WriteEndElement();
                 xw.WriteElementString("indexcount", columns.ToString());
-                xw.WriteElementString("outputtype", "4");
-                xw.WriteElementString("datatype", isxaxissixteenbit ? "2" : "0");
-                xw.WriteElementString("unittype", "0");
+                xw.WriteStartElement("embedinfo"); // "1"
+                xw.WriteAttributeString("type", "1");
+                xw.WriteEndElement();
+                //xw.WriteElementString("outputtype", "6");
+                xw.WriteElementString("datatype", isxaxissixteenbit ? "6" : "0");
+                xw.WriteElementString("unittype", "4");
                 xw.WriteStartElement("DALINK");
                 xw.WriteAttributeString("index", "0");
                 xw.WriteEndElement();
-                xw.WriteElementString("min", "0.000000");
-                xw.WriteElementString("max", "65535.000000");
-                xw.WriteElementString("decplaces", "0");
+                //xw.WriteElementString("min", "0.000000");
+                //xw.WriteElementString("max", "65535.000000");
+                //xw.WriteElementString("decplaces", "0");
                 xw.WriteStartElement("MATH");
-                xw.WriteAttributeString("equation", "X*" + x_correctionfactor.ToString("F1",CultureInfo.InvariantCulture));//
+                xw.WriteAttributeString("equation", "X*" + x_correctionfactor.ToString("F6").Replace(",", "."));//
                 xw.WriteStartElement("VAR");
                 xw.WriteAttributeString("id", "X");
                 xw.WriteEndElement();
                 xw.WriteEndElement();
-                xw.WriteElementString("units", xunits);
-                if (xaxisaddress == 0)
+                //xw.WriteElementString("units", xunits);
+                if (xaxisaddress == 2137)
                 {
                     for (int i = 0; i < columns; i++)
                     {
@@ -136,33 +140,37 @@ namespace VAGSuite
                 xw.WriteAttributeString("id", "y");
                 xw.WriteAttributeString("uniqueid", "0x0");
                 xw.WriteStartElement("EMBEDDEDDATA");
+                xw.WriteAttributeString("mmededtypeflags", "0x02");
                 if (yaxisaddress != 0)
                 {
                     xw.WriteAttributeString("mmedaddress", "0x" + yaxisaddress.ToString("X6"));
                 }
-                xw.WriteAttributeString("mmedelements", rows.ToString());
                 xw.WriteAttributeString("mmedelementsizebits", isyaxissixteenbit ? "16" : "8");
-                xw.WriteAttributeString("mmedmajorstridebits", "-32");
+                xw.WriteAttributeString("mmedrowcount", rows.ToString());
+                xw.WriteAttributeString("mmedmajorstridebits", "0");
                 xw.WriteAttributeString("mmedminorstridebits", "0");
                 xw.WriteEndElement();
                 xw.WriteElementString("indexcount", rows.ToString());
-                xw.WriteElementString("outputtype", "4");
+                xw.WriteStartElement("embedinfo"); // "1"
+                xw.WriteAttributeString("type", "1");
+                xw.WriteEndElement();
+                //xw.WriteElementString("outputtype", "4");
                 xw.WriteElementString("datatype", isyaxissixteenbit ? "2" : "0");
                 xw.WriteElementString("unittype", "0");
                 xw.WriteStartElement("DALINK");
                 xw.WriteAttributeString("index", "0");
                 xw.WriteEndElement();
-                xw.WriteElementString("min", "0.000000");
-                xw.WriteElementString("max", "65535.000000");
-                xw.WriteElementString("decplaces", "0");
+                //xw.WriteElementString("min", "0.000000");
+                //xw.WriteElementString("max", "65535.000000");
+                //xw.WriteElementString("decplaces", "0");
                 xw.WriteStartElement("MATH");
-                xw.WriteAttributeString("equation", "X*" + y_correctionfactor.ToString("F1", CultureInfo.InvariantCulture));
+                xw.WriteAttributeString("equation", "X*" + y_correctionfactor.ToString("F6").Replace(",", "."));
                 xw.WriteStartElement("VAR");
                 xw.WriteAttributeString("id", "X");
                 xw.WriteEndElement();
                 xw.WriteEndElement();
-                xw.WriteElementString("units", yunits);
-                if (yaxisaddress == 0)
+                //xw.WriteElementString("units", yunits);
+                if (yaxisaddress == 2137)
                 {
                     for (int i = 0; i < rows; i++)
                     {
@@ -179,6 +187,7 @@ namespace VAGSuite
                 xw.WriteAttributeString("id", "z");
                 xw.WriteAttributeString("uniqueid", "0x0");
                 xw.WriteStartElement("EMBEDDEDDATA");
+                xw.WriteAttributeString("mmedtypeflags", "0x01");//signed
                 xw.WriteAttributeString("mmedaddress", "0x" + address.ToString("X6"));
                 xw.WriteAttributeString("mmedcolcount", columns.ToString());
                 xw.WriteAttributeString("mmedrowcount", rows.ToString());
@@ -193,7 +202,7 @@ namespace VAGSuite
                 xw.WriteElementString("max", "65535.000000");
                 xw.WriteElementString("decplaces", "2");
                 xw.WriteStartElement("MATH");
-                xw.WriteAttributeString("equation", "X*" + z_correctionfactor.ToString("F1", CultureInfo.InvariantCulture));
+                xw.WriteAttributeString("equation", "X*" + z_correctionfactor.ToString("F6").Replace(",", "."));
                 xw.WriteStartElement("VAR");
                 xw.WriteAttributeString("id", "X");
                 xw.WriteEndElement();

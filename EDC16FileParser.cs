@@ -493,7 +493,7 @@ namespace VAGSuite
                         sh.Subcategory = "Limiters";
                         sh.Size = "[" + sh.Y_axis_length + "x" + sh.X_axis_length + "]";
                         //int lmCount = GetMapNameCountForCodeBlock("Torque limiter", sh.CodeBlock, newSymbols, false);
-                        sh.Varname = "Torque limiter";
+                        sh.Varname = "Torque limiter";//+ sh.X_axis_address.ToString("X6")
 
                         sh.X_axis_descr = rpm.Description;
                         sh.Y_axis_descr = atm.Description;

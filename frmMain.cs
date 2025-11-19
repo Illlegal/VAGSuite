@@ -3768,12 +3768,12 @@ namespace VAGSuite
                                     float ZCorrection = (float)sh.Correction;
                                     bool m_issixteenbit = true;
                                     // special maps are:
-                                    int xaxisaddress = sh.X_axis_address;
-                                    int yaxisaddress = sh.Y_axis_address;
+                                    int xaxisaddress = sh.Y_axis_address;   //Swapped row and cols to writer :)
+                                    int yaxisaddress = sh.X_axis_address;   
                                     bool isxaxissixteenbit = true;
                                     bool isyaxissixteenbit = true;
-                                    int columns = sh.X_axis_length;
-                                    int rows = sh.Y_axis_length;
+                                    int columns = sh.X_axis_length; 
+                                    int rows = sh.Y_axis_length;    
                                     //int tablewidth = GetTableMatrixWitdhByName(Tools.Instance.m_currentfile, Tools.Instance.m_symbols, sh.Varname, out columns, out rows);
                                     xdf.AddTable(sh.Varname, sh.Description, XDFCategories.Fuel, xaxis, yaxis, zaxis, columns, rows, fileoffset,
                                         m_issixteenbit, xaxisaddress, yaxisaddress, isxaxissixteenbit, isyaxissixteenbit, XCorrection, YCorrection, ZCorrection);
