@@ -14,19 +14,63 @@ using Microsoft.Office.Interop.Excel;
 using static Nevron.Interop.Win32.NGdi32;
 using System.Drawing;
 using System.Security.Cryptography;
+using System.Collections.ObjectModel;
 
 namespace VAGSuite
 {
+    //class to categorize XDF. Based on class in MapViewerEx.cs
+    internal class XDFCategory
+    {
+        public XDFCategories Category { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
 
+        public XDFCategory(int id, string name, XDFCategories category)
+        {
+            Category = category;
+            Id = id;
+            Name = name;
+        }
+    };
     class XDFWriter 
     {
         private XmlWriter xw;
         private int UniqueID = 1;
         //private XmlWriter writer;
         private string filePath;
-       // private int uniqueId = 100;
+        // private int uniqueId = 100;
+        private bool lsbfirst;//very fuckin important
+        private XDFCategory[] XDFcategories = new XDFCategory[] //To show category in XDF
+            {
+                //Main categories
+                new XDFCategory(0,"", XDFCategories.Undocumented),
+                new XDFCategory(1,"Fuel", XDFCategories.Fuel),
+                new XDFCategory(2,"Turbo", XDFCategories.Turbo),
+                new XDFCategory(3,"Torque", XDFCategories.Torque),
+                new XDFCategory(4,"Misc", XDFCategories.Misc),
+                //Subcategories
+                new XDFCategory(5,"Limiters", XDFCategories.Limiters),
+                new XDFCategory(6,"Correction", XDFCategories.Correction),
+                new XDFCategory(7,"Target Boost", XDFCategories.Undocumented),
+                new XDFCategory(8,"Target torque", XDFCategories.Undocumented),
+                new XDFCategory(9,"EGR", XDFCategories.Undocumented),
+                new XDFCategory(10,"Injector duration", XDFCategories.Undocumented)
 
-        public void CreateXDF(string filename, string flashfilename, int dataend, int filesize)
+
+
+            };
+        public int rtnCategoryIndexByName(string Category)
+        {
+            foreach (XDFCategory xdfcategories in XDFcategories)
+            {
+                if (Category == xdfcategories.Name)
+                {
+                    return xdfcategories.Id+1;//Weird
+                }
+            }
+            return 0;
+        }
+        public void CreateXDF(string filename, string flashfilename, int dataend, int filesize, bool lsb)
         {
             var settings = new XmlWriterSettings
             {
@@ -36,6 +80,8 @@ namespace VAGSuite
                 Encoding = new UTF8Encoding(false)
                 //Encoding = System.Text.Encoding.UTF8
             };
+
+            lsbfirst = lsb; //important, for later. like in addTable func etc.
 
             xw = XmlWriter.Create(filename, settings);
             xw.WriteStartDocument();
@@ -57,7 +103,7 @@ namespace VAGSuite
             xw.WriteAttributeString("sigdigits", "2");
             xw.WriteAttributeString("outputtype", "1");
             xw.WriteAttributeString("signed", "1");
-            xw.WriteAttributeString("lsbfirst", "1");
+            xw.WriteAttributeString("lsbfirst", lsbfirst ? "1" : "0");
             xw.WriteAttributeString("float", "0");
             xw.WriteEndElement();
 
@@ -70,10 +116,27 @@ namespace VAGSuite
             xw.WriteAttributeString("name", "Binary File");
             xw.WriteAttributeString("desc", "This region describes the bin file edited by this XDF");
             xw.WriteEndElement();
+
+            foreach(XDFCategory xdfcategories in XDFcategories){
+                if (xdfcategories.Id != 0)
+                {
+                    xw.WriteStartElement("CATEGORY");
+                    xw.WriteAttributeString("index", "0x" + xdfcategories.Id.ToString("X2"));
+                    xw.WriteAttributeString("name", xdfcategories.Name);
+                    xw.WriteEndElement();
+                }
+            }
+
             xw.WriteEndElement(); // XDFHEADER
         }
 
-        public void AddTable(string name, string description, XDFCategories category, string xunits, string yunits, string zunits, int rows, int columns, int address, bool issixteenbit, int xaxisaddress, int yaxisaddress, bool isxaxissixteenbit, bool isyaxissixteenbit, float x_correctionfactor, float y_correctionfactor, float z_correctionfactor)
+        public void AddTable(string name, string description, string ACategory, string BCategory, 
+            string xunits, string yunits, string zunits, 
+            int rows, int columns, int address, bool issixteenbit, 
+            int xaxisaddress, int yaxisaddress, 
+            bool isxaxissixteenbit, bool isyaxissixteenbit, 
+            float x_correctionfactor, float y_correctionfactor, float z_correctionfactor,
+            float XFactor, float YFactor, float ZFactor)
         {
             if (xw != null)
             {
@@ -84,16 +147,30 @@ namespace VAGSuite
                 xw.WriteAttributeString("flags", "0x0");
                 xw.WriteElementString("title", name);
                 xw.WriteElementString("description", description);
-                //xw.WriteStartElement("CATEGORY");
-                //xw.WriteAttributeString("category", ((int)category + 1).ToString());
-                //xw.WriteEndElement();
+
+                if (rtnCategoryIndexByName(ACategory) != 0)
+                {
+                    xw.WriteStartElement("CATEGORYMEM");
+                    xw.WriteAttributeString("index", "0");
+                    xw.WriteAttributeString("category", rtnCategoryIndexByName(ACategory).ToString());
+                    xw.WriteEndElement();
+                }
+                if (rtnCategoryIndexByName(BCategory) != 0)
+                {
+                    xw.WriteStartElement("CATEGORYMEM");
+                    xw.WriteAttributeString("index", "1");
+                    xw.WriteAttributeString("category", rtnCategoryIndexByName(BCategory).ToString());
+                    xw.WriteEndElement();
+                }
+
+                
 
                 // X axis
                 xw.WriteStartElement("XDFAXIS");
                 xw.WriteAttributeString("id", "x");
                 xw.WriteAttributeString("uniqueid", "0x0");
                 xw.WriteStartElement("EMBEDDEDDATA");
-                xw.WriteAttributeString("mmededtypeflags", "0x02");
+                xw.WriteAttributeString("mmedtypeflags", lsbfirst ? "0x02" : "0x00");     //00/02 or 01/03 for signed
                 if (xaxisaddress != 0)
                 {
                 xw.WriteAttributeString("mmedaddress", "0x" + xaxisaddress.ToString("X6")); //sh.X_axis_address.ToString("X6")
@@ -117,7 +194,7 @@ namespace VAGSuite
                 //xw.WriteElementString("max", "65535.000000");
                 //xw.WriteElementString("decplaces", "0");
                 xw.WriteStartElement("MATH");
-                xw.WriteAttributeString("equation", "X*" + x_correctionfactor.ToString("F6").Replace(",", "."));//
+                xw.WriteAttributeString("equation", "X*" + x_correctionfactor.ToString("F6").Replace(",", ".") + "+" + XFactor);//
                 xw.WriteStartElement("VAR");
                 xw.WriteAttributeString("id", "X");
                 xw.WriteEndElement();
@@ -140,7 +217,7 @@ namespace VAGSuite
                 xw.WriteAttributeString("id", "y");
                 xw.WriteAttributeString("uniqueid", "0x0");
                 xw.WriteStartElement("EMBEDDEDDATA");
-                xw.WriteAttributeString("mmededtypeflags", "0x02");
+                xw.WriteAttributeString("mmedtypeflags", lsbfirst ? "0x02" : "0x00");
                 if (yaxisaddress != 0)
                 {
                     xw.WriteAttributeString("mmedaddress", "0x" + yaxisaddress.ToString("X6"));
@@ -164,7 +241,7 @@ namespace VAGSuite
                 //xw.WriteElementString("max", "65535.000000");
                 //xw.WriteElementString("decplaces", "0");
                 xw.WriteStartElement("MATH");
-                xw.WriteAttributeString("equation", "X*" + y_correctionfactor.ToString("F6").Replace(",", "."));
+                xw.WriteAttributeString("equation", "X*" + y_correctionfactor.ToString("F6").Replace(",", ".") + "+" + YFactor);
                 xw.WriteStartElement("VAR");
                 xw.WriteAttributeString("id", "X");
                 xw.WriteEndElement();
@@ -187,7 +264,7 @@ namespace VAGSuite
                 xw.WriteAttributeString("id", "z");
                 xw.WriteAttributeString("uniqueid", "0x0");
                 xw.WriteStartElement("EMBEDDEDDATA");
-                xw.WriteAttributeString("mmedtypeflags", "0x01");//signed
+                xw.WriteAttributeString("mmedtypeflags", lsbfirst ? "0x03" : "0x01");//signed
                 xw.WriteAttributeString("mmedaddress", "0x" + address.ToString("X6"));
                 xw.WriteAttributeString("mmedcolcount", columns.ToString());
                 xw.WriteAttributeString("mmedrowcount", rows.ToString());
@@ -202,7 +279,7 @@ namespace VAGSuite
                 xw.WriteElementString("max", "65535.000000");
                 xw.WriteElementString("decplaces", "2");
                 xw.WriteStartElement("MATH");
-                xw.WriteAttributeString("equation", "X*" + z_correctionfactor.ToString("F6").Replace(",", "."));
+                xw.WriteAttributeString("equation", "X*" + z_correctionfactor.ToString("F6").Replace(",", ".") + "+" + ZFactor);
                 xw.WriteStartElement("VAR");
                 xw.WriteAttributeString("id", "X");
                 xw.WriteEndElement();

@@ -64,6 +64,7 @@ using System.IO;
 using DevExpress.XtraBars.Docking;
 using DevExpress.XtraBars;
 using DevExpress.Skins;
+using System.Data.SqlTypes;
 
 namespace VAGSuite
 {
@@ -3731,6 +3732,7 @@ namespace VAGSuite
 
         private void btnExportXDF_ItemClick(object sender, ItemClickEventArgs e)
         {
+
             SaveFileDialog saveFileDialog2 = new SaveFileDialog();
             saveFileDialog2.Filter = "XDF files|*.xdf";
             if (gridControl1.DataSource != null)
@@ -3743,9 +3745,29 @@ namespace VAGSuite
                 {
                     
                     filename = saveFileDialog2.FileName;
-                    //filename += ".xdf";
+                    EDCFileType fileType = Tools.Instance.DetermineFileType(Tools.Instance.m_currentfile, false);
+                    bool lsbfirst = false;
+                    switch (fileType)
+                    {
+                        case EDCFileType.EDC15P:
+                        case EDCFileType.EDC15P6:
+                        case EDCFileType.EDC15V:
+                        case EDCFileType.EDC15C:
+                        case EDCFileType.EDC15M:
+                        case EDCFileType.MSA15:
+                        case EDCFileType.MSA12:
+                        case EDCFileType.MSA11:
+                        case EDCFileType.MSA6:
+                            lsbfirst = true;
+                            break;
+                        case EDCFileType.EDC16:
+                        case EDCFileType.EDC17:
+                        default:
+                            lsbfirst = false;
+                            break;
+                    }
 
-                    xdf.CreateXDF(filename, Tools.Instance.m_currentfile, Tools.Instance.m_currentfilelength, Tools.Instance.m_currentfilelength);
+                    xdf.CreateXDF(filename, Tools.Instance.m_currentfile, Tools.Instance.m_currentfilelength, Tools.Instance.m_currentfilelength, lsbfirst);
                     foreach (SymbolHelper sh in Tools.Instance.m_symbols)
                     {
                         if (sh.Flash_start_address != 0)
@@ -3766,6 +3788,10 @@ namespace VAGSuite
                                     float XCorrection = (float)sh.X_axis_correction;
                                     float YCorrection = (float)sh.Y_axis_correction;
                                     float ZCorrection = (float)sh.Correction;
+                                    float XFactor = (float)sh.X_axis_offset;    //varname totally accidental
+                                    float YFactor = (float)sh.Y_axis_offset;
+                                    float ZFactor = (float)sh.Offset;
+
                                     bool m_issixteenbit = true;
                                     // special maps are:
                                     int xaxisaddress = sh.Y_axis_address;   //Swapped row and cols to writer :)
@@ -3773,10 +3799,12 @@ namespace VAGSuite
                                     bool isxaxissixteenbit = true;
                                     bool isyaxissixteenbit = true;
                                     int columns = sh.X_axis_length; 
-                                    int rows = sh.Y_axis_length;    
+                                    int rows = sh.Y_axis_length;
+                                    string ACategory = sh.Category;
+                                    string BCategory = sh.Subcategory;
                                     //int tablewidth = GetTableMatrixWitdhByName(Tools.Instance.m_currentfile, Tools.Instance.m_symbols, sh.Varname, out columns, out rows);
-                                    xdf.AddTable(sh.Varname, sh.Description, XDFCategories.Fuel, xaxis, yaxis, zaxis, columns, rows, fileoffset,
-                                        m_issixteenbit, xaxisaddress, yaxisaddress, isxaxissixteenbit, isyaxissixteenbit, XCorrection, YCorrection, ZCorrection);
+                                    xdf.AddTable(sh.Varname, sh.Description, ACategory, BCategory, xaxis, yaxis, zaxis, columns, rows, fileoffset,
+                                        m_issixteenbit, xaxisaddress, yaxisaddress, isxaxissixteenbit, isyaxissixteenbit, XCorrection, YCorrection, ZCorrection, XFactor, YFactor, ZFactor);
                                 }
                             }
                         }

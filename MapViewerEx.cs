@@ -35,16 +35,22 @@ namespace VAGSuite
     public enum XDFCategories : int
     {
         Undocumented = 0,
-        Fuel,
         Ignition,
         Boost_control,
         Idle,
         Correction,
-        Misc,
         Sensor,
         Runtime,
-        Diagnostics
+        Diagnostics,
+
+        Fuel,
+        Turbo,
+        Torque,
+        Misc,
+        
+        Limiters
     }
+    
 
     public enum XDFSubCategory : int
     {

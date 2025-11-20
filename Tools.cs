@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using DevExpress.Data.Filtering.Helpers;
+using System.Web.UI.Design;
 
 namespace VAGSuite
 {
@@ -26,6 +27,10 @@ namespace VAGSuite
         }
     }
 
+    // === Specific candidates (add more alternative patterns if you ever encounter variants with spaces, e.g. "EDC 17C74") ===
+
+
+   
     public sealed class Tools
     {
         private static volatile Tools instance;
